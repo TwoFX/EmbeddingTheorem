@@ -1,0 +1,175 @@
+\documentclass[a4paper, parskip=half]{scrartcl}
+
+\usepackage[l2tabu, orthodox]{nag}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[ngerman]{babel}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ntheorem}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{centernot}
+
+\usepackage{csquotes}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{stmaryrd}
+\usepackage{tikz-cd}
+\usepackage{faktor}
+
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{marginbreak}
+\theorembodyfont{\normalfont}
+\newtheorem{remark}{Bemerkung}[section]
+\newtheorem{proposition}[remark]{Proposition}
+\newtheorem{theorem}[remark]{Satz}
+\newtheorem{lemma}[remark]{Hilfssatz}
+\newtheorem{definition}[remark]{Definition}
+\newtheorem{defre}[remark]{Definition und Bemerkung}
+\newtheorem{defle}[remark]{Definition und Hilfssatz}
+\newtheorem{re}[remark]{Erinnerung}
+\newtheorem{cor}[remark]{Folgerung}
+\newtheorem{corde}[remark]{Folgerung und Definition}
+\newtheorem{example}[remark]{Beispiel}
+
+\MakeOuterQuote{"}
+
+\newcommand{\defiff}{\mathrel{\vcentcolon\Longleftrightarrow}}
+\newcommand\ccat\mathsf
+\newcommand\cat\mathcal
+\newcommand{\down}[1]{{\downarrow}#1}
+
+\DeclareMathOperator{\colim}{colim}
+
+\DeclarePairedDelimiterX\set[1]\lbrace\rbrace{\def\given{\;\delimsize\vert\;}#1}
+
+\subtitle{Seminar Kategorientheorie}
+\title{Der Einbettungssatz}
+\author{Markus Himmel}
+\date{19. Juli 2018}
+
+\begin{document}
+	\maketitle
+	\setcounter{section}{-2}
+
+	\section{Vorbereitungen, I}
+		\begin{proposition}[Explizite Berechnung kleiner filtrierter Colimiten in $\ccat{Set}$]
+			Es sei $\cat{C}$ klein und filtriert und $F\colon \cat{C}\to\ccat{Ab}$ ein
+			Funktor. Es ist $\colim_\cat{C} F = L$, wobei
+			\[
+				L=\faktor{\coprod_{C\in\cat{C}}FC}{\approx},\quad s_C\colon FC\to L;\ x\mapsto [x]_\approx.
+			\]
+			Die Äquivalenzrelation $\approx$ ist gegeben durch
+			\[
+				(x\in FC) \approx (x'\in FC') \defiff \exists C''\in\cat{C}, f\colon C\to C'', g\colon C'\to C'': Ff(x) = Fg(x').
+			\]
+		\end{proposition}
+		\begin{proposition}
+			Es sei $\cat{C}$ eine Kategorie mit Pullbacks.
+			\[
+				\begin{tikzcd}[sep=4em]
+					A \ar{r}{a} \ar[phantom]{dr}{\text{(I)}} \ar{d}{c} & B \ar[phantom]{dr}{\text{(II)}} \ar{r}{b} \ar{d}{d} & C \ar{d}{e}\\
+					D \ar{r}{f} & E \ar{r}{g} & F
+				\end{tikzcd}
+			\]
+			Falls sowohl das äußere Rechteck als auch das Quadrat (II) ein Pullback sind, so ist
+			auch das Quadrat (I) ein Pullback.
+		\end{proposition}
+		\begin{proposition}
+			Falls in einer Kategorie $\cat{C}$ der Pullback eines Coequalizers mit sich
+			selbst existiert, so ist dieser Coequalizer gerade der Coequalizer dieses Pullbacks.
+		\end{proposition}
+
+	\section{Vorbereitungen, II}
+		\begin{proposition}
+			In einer abelschen Kategorie ist der Pullback eines Epimorphismus wieder
+			ein Epimorphismus und jeder Pullback ist gleichzeitig ein Pushout.
+			\[
+				\begin{tikzcd}[row sep=2.4em]
+					P \arrow{d}{v} \arrow[two heads]{r}{u} & A \arrow{d}{g}\\
+					B \arrow[two heads]{r}{f} & C
+				\end{tikzcd}
+			\]
+		\end{proposition}
+	\section{Der Einbettungssatz}
+		Es sei stets $\cat{A}$ eine kleine abelsche Kategorie.
+		\begin{proposition}
+			Es sei $F\colon\cat{D}\to\ccat{Ab}^{\cat{A}}$ ein filtriertes Diagramm
+			linksexakter additiver Funktoren. Dann ist auch $\colim_{D\in\cat{D}} F(D)$
+			linksexakt und additiv.
+		\end{proposition}
+		\begin{definition}[Die Einbettung]
+			Für eine Kategorie $\cat{D}$ und einen Funktor $\phi\colon\cat{D}\to\cat{A}$
+			definiere $U\coloneqq\colim_{D\in\cat{D}} (Y\circ\phi)(D)$, wobei $Y$ die
+			kontravariante Yoneda-Einbettung bezeichnet.
+		\end{definition}
+		\begin{lemma}
+			Ist $\cat{D}$ kofiltriert, so ist $U$ linksexakt.
+		\end{lemma}
+		\begin{lemma}
+			Es sei $\cat{D}$ kofiltriert. Weiter besitze jeder Epimorphismus
+			$f\colon A\to\phi(D)$ in $\cat{A}$ die Darstellung $f = \phi(d)$, wobei
+			$d\colon D'\to D$ in $\cat{D}$. Dann erhält $U$ Epimorphismen.
+		\end{lemma}
+		\begin{lemma}
+			Es sei $\cat{D}$ kofiltriert. Weiter gelte:
+			\begin{enumerate}[label=(\arabic*)]
+				\item $\forall A\in\cat{A}\ \exists D\in\cat{D}: A=\phi(D)$;
+				\item $\phi(d)$ ist ein Epimorphismus in $\cat{A}$ für jeden Morphismus $d$ in $\cat{D}$.
+			\end{enumerate}
+			Dann ist $U$ treu.
+		\end{lemma}
+		\begin{theorem}[von der treuen Einbettung]\label{abeb}
+			Jede kleine abelsche Kategorie lässt sich treu und exakt in die Kategorie
+			der abelschen Gruppen einbetten.
+		\end{theorem}
+
+		Die Aussagen von \ref{fin}, \ref{fact} und \ref{func} beziehen sich auf
+		die im Beweis von \ref{abeb} konstruierten
+		Wahlen für $\cat{D}$ und $\phi$.
+		\begin{defle}\label{fin}
+			Für alle Objekte $D_1,D_2\in\cat{D}$ ist das Segment
+				\[
+					[D_1, D_2] \coloneqq\set{D\in\cat{D}\given D_1\leq D\leq D_2}
+				\]
+			endlich.
+		\end{defle}
+		\begin{lemma}\label{fact}
+			Sind $D_1, D_2\in\cat{D}$ Objekte, so ist die kanonische Faktorisierung
+			\[
+				\begin{tikzcd}
+					\phi(D_1) \arrow[r] & \lim_{D_1<D\leq D_2}\phi(D)
+				\end{tikzcd}
+			\]
+			ein Epimorphismus.
+		\end{lemma}
+		\begin{lemma}\label{func}
+			Es sei $D_0\in\cat{D}$ ein Objekt und $\Gamma\colon \down{D_0}\to\cat{A}$
+			ein Funktor, wobei für alle $D_1\leq D_2\leq D_0$ die Faktorisierung
+			\[
+				\begin{tikzcd}
+					\Gamma(D_1) \arrow[r] & \lim_{D_1<D\leq D_2} \Gamma(D)
+				\end{tikzcd}
+			\]
+			ein Epimorphismus sei. Weiter sei $F\colon\cat{A}\to\ccat{Ab}$ ein
+			Funktor und $\alpha_{D_0}\colon \cat{A}(\Gamma D_0, {-})\Rightarrow F$
+			eine natürliche Transformation. Dann besitzt $\alpha_{D_0}$ die
+			Faktorisierung
+			\[
+				\begin{tikzcd}
+					\cat{A}(\Gamma D_0, {-}) \arrow{r}{s_{D_0}} & \colim_{D\leq D_0}\cat{A}(\Gamma D, {-}) \arrow{r}{\alpha} & F.
+				\end{tikzcd}
+			\]
+			$s_{D_0}$ ist hierbei der kanonische Morphismus des Kolimes.
+		\end{lemma}
+		\begin{theorem}[von der volltreuen Einbettung; Einbettungssatz von Freyd-Mitchell]
+			Für jede kleine abelsche Kategorie existieren ein Ring $R$ und eine volltreue
+			und exakte Einbettung in die Kategorie $\ccat{Mod}_R$ der $R$-Moduln.
+		\end{theorem}
+\end{document}
