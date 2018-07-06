@@ -9,7 +9,7 @@
 
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{ntheorem}
+\usepackage[thmmarks, amsmath]{ntheorem}
 \usepackage{mathtools}
 \usepackage{physics}
 \usepackage{centernot}
@@ -21,6 +21,7 @@
 \usepackage{stmaryrd}
 \usepackage{tikz-cd}
 \usepackage{faktor}
+\usepackage{etoolbox}
 
 \usepackage[hidelinks]{hyperref}
 
@@ -38,14 +39,27 @@
 \newtheorem{corde}[remark]{Folgerung und Definition}
 \newtheorem{example}[remark]{Beispiel}
 
+\theoremstyle{nonumberplain}
+\theoremheaderfont{\normalfont\itshape}
+\theorembodyfont{\footnotesize}
+\theoremsymbol{\ensuremath{\Box}}
+\newtheorem{proof}{Beweis.}
+
+
 \MakeOuterQuote{"}
+
+\newtoggle{proofs}
+\toggletrue{proofs}
 
 \newcommand{\defiff}{\mathrel{\vcentcolon\Longleftrightarrow}}
 \newcommand\ccat\mathsf
 \newcommand\cat\mathcal
 \newcommand{\down}[1]{{\downarrow}#1}
+\newcommand{\p}[1]{\iftoggle{proofs}{#1}{}}
+\newcommand{\n}{\pgfmatrixnextcell}
 
 \DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator{\id}{id}
 
 \DeclarePairedDelimiterX\set[1]\lbrace\rbrace{\def\given{\;\delimsize\vert\;}#1}
 
@@ -59,8 +73,8 @@
 	\setcounter{section}{-1}
 
 	\section{Vorbereitungen}
-		\begin{proposition}[Explizite Berechnung kleiner filtrierter Colimiten in $\ccat{Ab}$]
-			Es sei $\cat{C}$ klein und filtriert und $F\colon \cat{C}\to\ccat{Ab}$ ein
+		\begin{proposition}[Explizite Berechnung kleiner filtrierter Colimiten in $\ccat{Set}$]
+			Es sei $\cat{C}$ klein und filtriert und $F\colon \cat{C}\to\ccat{Set}$ ein
 			Funktor. Es ist $\colim_\cat{C} F = L$, wobei
 			\[
 				L=\faktor{\coprod_{C\in\cat{C}}FC}{\approx},\quad s_C\colon FC\to L;\ x\mapsto [x]_\approx.
@@ -70,6 +84,53 @@
 				(x\in FC) \approx (x'\in FC') \defiff \exists C''\in\cat{C}, f\colon C\to C'', g\colon C'\to C'': Ff(x) = Fg(x').
 			\]
 		\end{proposition}
+		\p{\begin{proof}
+			Zu zeigen sind:
+			\begin{enumerate}
+				\item $\approx$ ist eine Äquivalenzrelation.
+				%\item $L$ ist eine abelsche Gruppe.
+				\item Der gegebene Kegel ist ein Grenzkegel.
+			\end{enumerate}
+			\begin{enumerate}[label=Zu \arabic*:]
+					\begin{minipage}{0.7\textwidth}
+					\item Klar: $\approx$ ist reflexiv und symmetrisch. Sei $(x\in FC_1)
+					\approx (x' \in FC_2)$, $(x'\in FC_2) \approx (x''\in FC_3)$.
+					Es existieren also Morphismen $f, g, h, k$, sodass
+					$Ff(x) = Fg(x')$, $Fh(x')=Fk(x'')$. Da $\cat{C}$ filtriert,
+					existiert ein Cokegel $(\alpha_i\colon C_i\to C_6)$ über dem
+					gegebenen Diagramm. Insbesondere haben wir also
+					\begin{align*}
+						F\alpha_4 \circ Ff(x) &= F\alpha_4\circ Fg(x') = F\alpha_2(x')\\
+							&= F\alpha_5\circ Fh(x') = F\alpha_5\circ Fk(x'').
+					\end{align*}
+					Dies zeigt $x \approx x''$.
+					\end{minipage}
+					\begin{minipage}{0.25\textwidth}
+						\[\begin{tikzcd}[sep=1em]
+							C_1 \ar{dr}{f} \n \n\\
+							\n C_4 \ar{dr}{\alpha_4} \n\\
+							C_2 \ar{dr}{h} \ar{ur}{g} \ar{rr}{\alpha_2} \n \n C_6\\
+							\n C_5 \ar{ur}{\alpha_5} \n\\
+							C_3 \ar{ur}{k} \n \n
+						\end{tikzcd}\]
+					\end{minipage}
+				%\item Es sei $(x\in FC_1)\approx (x'\in FC_2)$, $(y\in FC_3)\approx(y'\in FC_4)$.
+				\item Es seien $C, C'\in\cat{C}$, $f\colon C\to C'$, $x\in C$.
+					Wegen $Ff(x) = F(\id_{C'})(Ff(x))$ gilt $s_C(x) = [x]_\approx
+					= [Ff(x)]_\approx = s_{C'}(Ff(x)) \implies s_C = s_{C'}\circ Ff$.
+					Also bilden die $s_C$ einen Kegel. Es sei ein weiterer Kegel
+					gegeben durch $(t_C\colon FC\to M)_{C\in\cat{C}}$. Definiere
+					$t\colon L\to M$ durch $t([x]_\approx)\coloneqq t_C(x)$ für
+					$x\in FC$. Dies ist wohldefiniert, denn für $x'\in FC'$ mit
+					$[x']_\approx = [x]_\approx$ existieren $f\colon C\to C''$,
+					$g\colon C'\to C''$ mit $Ff(x) = Fg(x')$. Da $t$ ein Kegel ist, folgt
+					\[
+						t_C(x) = t_{C''}\circ Ff(x) = t_{C''}\circ Fg(x') = t_{C'}(x').
+					\]
+					$t\circ s_C=t_C$ gilt per Konstruktion und $t$ wird durch diese
+					Identität eindeutig festgelegt.
+			\end{enumerate}
+		\end{proof}}
 		\begin{proposition}
 			Es sei $\cat{C}$ eine Kategorie mit Pullbacks.
 			\[
