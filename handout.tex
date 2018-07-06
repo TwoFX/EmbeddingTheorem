@@ -168,6 +168,27 @@
 			Falls in einer Kategorie $\cat{C}$ der Pullback eines Coequalizers mit sich
 			selbst existiert, so ist dieser Coequalizer gerade der Coequalizer dieses Pullbacks.
 		\end{proposition}
+		\p{%
+			\begin{minipage}{0.75\textwidth}%
+			\begin{proof}
+				Es sei $f$ der Coequalizer von $(x, y)$ und $(\alpha, \beta)$ der
+				Pullback von $(f, f)$. Wegen $f\circ x = f\circ y$ existiert ein
+				eindeutiger Morphismus $z\colon X \to P$ mit $\alpha\circ z = x$,
+				$\beta\circ z=y$. Ist nun $g\colon A\to C$ ein Morphismus mit
+				$g\circ\alpha = g\circ\beta$, so gilt $g\circ x = g\circ\alpha\circ z
+				= g\circ\beta\circ z = g\circ y$. Es ist aber $f$ der Coequalizer von
+				$(x, y)$, also existiert ein eindeutiges $h$ mit $g = h\circ f$.
+			\end{proof}
+		\end{minipage}%
+		\begin{minipage}[t]{0.25\textwidth}
+			\[
+				\begin{tikzcd}[sep=1.4em]
+					\n X \ar{dl}[']{z} \ar[shift left]{d}{y} \ar[shift right, ']{d}{x} \n \\
+					P \ar[shift left]{r}{\alpha} \ar[shift right, ']{r}{\beta} \n \ar{d}{g} A \ar{r}{f} \n \ar{dl}{h} B \\
+					\n C \n
+				\end{tikzcd}
+			\]
+		\end{minipage}}
 
 	\section{Der Einbettungssatz}
 		Es sei stets $\cat{A}$ eine kleine abelsche Kategorie.
