@@ -73,7 +73,7 @@
 	\setcounter{section}{-1}
 
 	\section{Aufwärmen}
-		\begin{proposition}[Explizite Berechnung kleiner filtrierter Colimiten in $\ccat{Set}$]
+		\begin{proposition}[Explizite Berechnung kleiner filtrierter Colimiten in $\ccat{Set}$]\label{2-13-3}
 			Es sei $\cat{C}$ klein und filtriert und $F\colon \cat{C}\to\ccat{Set}$ ein
 			Funktor. Es ist $\colim_\cat{C} F = L$, wobei
 			\[
@@ -201,11 +201,14 @@
 
 	\section{Der Einbettungssatz}
 		Es sei stets $\cat{A}$ eine kleine abelsche Kategorie.
-		\begin{proposition}
+		\begin{proposition}\label{1-14-1}
 			Es sei $F\colon\cat{D}\to\ccat{Ab}^{\cat{A}}$ ein filtriertes Diagramm
 			linksexakter additiver Funktoren. Dann ist auch $\colim_{D\in\cat{D}} F(D)$
 			linksexakt und additiv.
 		\end{proposition}
+		\p{\begin{proof}
+			Ohne.
+		\end{proof}}
 		\begin{definition}[Die Einbettung]
 			Für eine Kategorie $\cat{D}$ und einen Funktor $\phi\colon\cat{D}\to\cat{A}$
 			definiere $U\coloneqq\colim_{D\in\cat{D}} (Y\circ\phi)(D)$, wobei $Y$ die
@@ -214,11 +217,43 @@
 		\begin{lemma}
 			Ist $\cat{D}$ kofiltriert, so ist $U$ linksexakt.
 		\end{lemma}
+		\p{\begin{proof}
+			Jeder darstellbare Funktor $\cat{A}(A, {-})\colon\cat{A}\to\ccat{Ab}$
+			präserviert Limiten, denn der darstellbare Funktor
+			$\cat{A}(A, {-})\colon\cat{A}\to\ccat{Set}$ tut das (Vortrag),
+			und der Vergissfunktor $\ccat{Ab}\to\ccat{Set}$ reflektiert Limiten
+			(Ohne Beweis? Liegt daran dass er Isomorphismen reflektiert). Also
+			ist $\cat{A}(A, {-})\colon \cat{A}\to\ccat{Ab}$ linksexakt (Vortrag).
+			Da $Y$ kontravariant ist, ist $U$ ein filtrierter Colimes linksexakter
+			Funktoren und mit \ref{1-14-1} selbst linksexakt.
+		\end{proof}}
 		\begin{lemma}
 			Es sei $\cat{D}$ kofiltriert. Weiter besitze jeder Epimorphismus
 			$f\colon A\to\phi(D)$ in $\cat{A}$ die Darstellung $f = \phi(d)$, wobei
 			$d\colon D'\to D$ in $\cat{D}$. Dann erhält $U$ Epimorphismen.
 		\end{lemma}
+		\p{\begin{proof}
+			Es sei $g\colon B\to C$ ein Epimorphismus in $\cat{A}$. $U(g)$ ist genau
+			dann ein Epimorphismus, wenn er surjektiv ist. Wir verwenden \ref{2-13-3}
+			(in $\ccat{Ab}$).
+
+			Es sei $x\in U(C) = \colim_{D\in\cat{D}}\cat{A}(\phi(D), C)$. $x$ ist
+			die Äquivalenzklasse eines Morphismus $\gamma\colon \phi(D)\to C$ in
+			$\cat{A}$. Damit $U(g)$, surjektiv ist, muss $y\in U(B)$ existieren,
+			sodass $U(g)(y)=x$. $y$ ist die Äquivalenzklasse eines Morphismus
+			$\beta\colon\phi(D')\to B$. Es gilt $U(g)([\beta]_\approx) = [g\circ\beta]_\approx$,
+			wir suchen also (Kontravarianz!) $D''\in\cat{D}$, $d\colon D''\to D$,
+			$d'\colon D''\to D'$, sodass $g\circ\beta\circ\phi(d')=\gamma\circ\phi(d)$.
+
+			Es sei $(A, \alpha, f)$ der Pullback von $(\gamma, g)$ in $\cat{A}$,
+			also $g\circ\alpha = \gamma\circ f$.
+			$f$ ist ein Epimorphismus, da $g$ ein Epimorphismus (Vortrag), und
+			per Voraussetzung existiert $\overline{d}\colon \overline{D}\to D$
+			mit $f=\phi(\overline{d})$. Die Wahlen $D'\coloneqq D''\coloneqq \overline{D}$,
+			$\beta\coloneqq\alpha$, $d'\coloneqq\id_{\overline{D}}$, $d\coloneqq\overline{d}$
+			liefern $g\circ\alpha\circ\phi(d')=g\circ\alpha=\gamma\circ\phi(d)$ wie
+			gewünscht.
+		\end{proof}}
 		\begin{lemma}
 			Es sei $\cat{D}$ kofiltriert. Weiter gelte:
 			\begin{enumerate}[label=(\arabic*)]
