@@ -280,6 +280,16 @@
 			\end{enumerate}
 			Dann ist $U$ treu.
 		\end{lemma}
+		\p{\begin{proof}
+			Es seien $f\colon A\rightrightarrows B$ Morphismen in $\cat{A}$ mit
+			$U(f)=U(g)$. $a\in U(A)$ sei die Äquivalenzklasse von $\alpha\colon\phi(D)\to A$.
+			Es ist$[f\circ\alpha]_\approx=U(f)(a)=U(g)(a)=[g\circ\alpha]_\approx$, also
+			existiert $d\colon D'\to D$ in $\cat{D}$ mit $f\circ\alpha\circ\phi(d)=g\circ\alpha\circ\phi(d)$.
+
+			Ist nun $\phi(\overline{D})=A$ für ein $\overline{D}\in\cat{D}$ (Voraussetzung),
+			so wähle $\alpha\coloneqq\id_{A}$. Wir erhalten $f\circ \id_A\circ\phi(d)=g\circ\id_A\circ\phi(d)$.
+			Nach Voraussetzung ist $\phi(d)$ ein Epimorphismus und es folgt $f=g$.
+		\end{proof}}
 		\begin{theorem}[von der treuen Einbettung]\label{abeb}
 			Jede kleine abelsche Kategorie lässt sich treu und exakt in die Kategorie
 			der abelschen Gruppen einbetten.
