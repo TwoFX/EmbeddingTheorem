@@ -22,6 +22,7 @@
 \usepackage{tikz-cd}
 \usepackage{faktor}
 \usepackage{etoolbox}
+\usepackage{wrapfig}
 
 \usepackage[hidelinks]{hyperref}
 
@@ -89,7 +90,7 @@
 			es nicht mal, $L$ überhaupt zu einer abelschen Gruppe zu machen.}
 		\p{\begin{proof}
 			Zu zeigen sind:
-			\begin{enumerate}
+			\begin{enumerate}[noitemsep]
 				\item $\approx$ ist eine Äquivalenzrelation.
 				%\item $L$ ist eine abelsche Gruppe.
 				\item Der gegebene Kegel ist ein Grenzkegel.
@@ -294,6 +295,131 @@
 			Jede kleine abelsche Kategorie lässt sich treu und exakt in die Kategorie
 			der abelschen Gruppen einbetten.
 		\end{theorem}
+		\p{\begin{proof}
+			Wir konstruieren eine kleine Kategorie $\cat{D}$ und einen Funktor
+			$\phi\colon\cat{D}\to\cat{A}$, die die Voraussetzungen der vorangegangenen
+			Hilfssätze erfüllen. $\cat{D}$ wird eine Poset-Kategorie sein; im Folgenden
+			bezeichnen $D$, $D_n$ und $D_n^\alpha$ je nach Kontext entweder die Halbordnung
+			selbst oder die zugehörige Kategorie. Ebenso bezeichne $D_1\leq D_2$ je nach Kontext
+			die Aussage oder den zugehörigen Morphismus.
+
+			Wir konstruieren eine aufsteigende Folge $\cat{D}_0 \subseteq \cat{D}_1 \subseteq \cdots
+			\subseteq \cat{D}_n \subseteq\cdots$ ($n\in\mathbb{N}_0$) von Halbordnungen und
+			Funktoren $\phi_n\colon\cat{D}_n\to\cat{A}$, die die folgenden Eigenschaften
+			erfüllen:
+			\begin{enumerate}[label=(\arabic*),noitemsep]
+				\item Für $a, b\in\cat{D}_n$ existiert das Infimum $a\wedge b$;
+				\item Für $n\leq m$ fallen $\phi_n$ und $\phi_m$ auf $\cat{D}_n$ zusammen;
+				\item $\phi_n(d)$ ist ein Epimorphismus für jedes $n\in\mathbb{N}$ und
+					für jeden Morphismus $d$ in $\cat{D}_n$;
+				\item $\forall A\in\cat{A}\ \exists D\in\cat{D}_1:\phi_1(D)= A$;
+				\item $\forall A\in\cat{A}, D\in\cat{D}_n, f\colon A\twoheadrightarrow\phi_n(D)
+					\ \exists d\in\cat{D}_{n+1}, d\colon D'\to D: \phi_{n+1}(d)=f$.
+			\end{enumerate}
+			Mit $\cat{D}\coloneqq\bigcup_{n\in\mathbb{N}_0}\cat{D}_n$ und der naheliegenden
+			Fortsetzung der $\phi_n$ zu $\phi$ sind dann alle Voraussetzungen erfüllt.
+
+			Definiere $\cat{D}_0\coloneqq\set{*}$, $\phi_0(*)\coloneqq0_\cat{A}$.
+			Diese Wahlen besitzen offensichtlich die Eigenschaften (1) und (3).
+
+			Sind $\cat{D}_0,\ldots,\cat{D}_n$ bereits definiert und (1), (2), (3)
+			und (5) erfüllt, so bezeichnen wir die Paare $(D, f)$, wobei $D\in\cat{D}_n$
+			und $f\colon A\twoheadrightarrow \phi_n(D)$, mit den aufeinanderfolgenden
+			Successor Ordinals. Wir konstruieren nun eine aufsteigende Folge von
+			Halbordnungen $\cat{D}_n^0\subseteq\cat{D}_n^1\subseteq\cdots\subseteq\cat{D}_n^\alpha\subseteq\cdots$,
+			und eine Folge von Funktoren $\phi_n^\alpha\colon\cat{D}_n^\alpha\to\cat{A}$,
+			wobei $\alpha$ bis zum Supremum der für die Paare verwendeten Indizes läuft und
+			folgende Eigenschaften erfüllt sein sollen:
+			\begin{enumerate}[label=(\alph*),noitemsep]
+				\item Für $a, b\in\cat{D}_n^\alpha$ existiert das Infimum $a\wedge b$;
+				\item Für $\beta<\alpha$ fallen $\phi_n^\alpha$ und $\phi_n^\beta$ auf $\cat{D}_n^\beta$;
+				\item $\phi_n^\alpha(d)$ ist ein Epimorphismus für jedes $\alpha$ und jeden
+					Morphismus $d$ in $\cat{D}_n^\alpha$;
+				\item Es sei $(D, f)$ das von $\alpha$ indizierte Paar, wobei
+					$f\colon A\to\phi_n(D)$. Dann existiert $d\colon D'\to D$ in
+					$\cat{D}_n^\alpha$, sodass $\phi_n^\alpha(d) = f$.
+			\end{enumerate}
+			Mit $\cat{D}_{n+1}\coloneqq\bigcup_\alpha D_n^\alpha$ und der naheliegenden
+			Fortsetzung $\phi_{n+1}\colon\cat{D}_{n+1}\to\cat{A}$ sind dann (1), (2), (3)
+			und (5) erfüllt.
+
+			$(\cat{D}_n^0, \phi_n^0)\coloneqq (\cat{D}_n, \phi_n)$. Ist $\alpha$ ein
+			Limit Ordinal, wähle $\cat{D}_n^\alpha\coloneqq\bigcup_{\beta<\alpha}\cat{D}_n^\beta$
+			und für $\phi_n^\alpha$ die entsprechende Fortsetzung. Es sei $(\cat{D}_n^\alpha,
+			\phi_n^\alpha)$ definiert und $\alpha+1$ bezeichne das Paar $(D, f)$.
+			Wir betrachten für die Menge $\down{D}\coloneqq\set{D'\in\cat{D}_n^\alpha\given D'\leq D}$
+			die disjunkte Vereinigung $\cat{D}_n^\alpha\amalg\down{D}$. $D'^*$
+			bezeichne die Kopie von $D'\leq D$ aus $\down{D}$. Wir versehen
+			$\cat{D}_n^\alpha\amalg\down{D}$ mit eine Halbordnung, indem wir die
+			Ordnungen auf $\cat{D}_n^\alpha$ und $\down{D}$ übernhemen und zusätzlich
+			$D'*\leq D'$ für alle $D'\leq D$ fordern. $\cat{D}_n^{\alpha+1}\coloneqq
+			\cat{D}_n^\alpha\amalg\down{D}$ mit der eben beschriebenen Halbordnung.
+			In $\down{D}$ existieren Infima. Für $D_1\in\down{D}, D_2\in\cat{D}_n^\alpha$
+			haben wir $(D_1\wedge D_2)^*=D_1^*\wedge D_2$ in $\cat{D}_n^{\alpha+1}$.
+
+			Auf $\cat{D}_n^\alpha$ definieren wir $\phi_{n+1}^\alpha$ als gleich
+			$\phi_n^\alpha$. Weiter definieren wir $\phi_n^{\alpha+1}(D^*)\coloneqq A$
+			und $\phi_n^{\alpha+1}(D^*\leq D)\coloneqq f$.
+			\[
+				\begin{tikzcd}[column sep=8em]
+					P \eqqcolon \phi_n^{\alpha+1}(D'^*)
+						\ar[two heads]{d}{v\eqqcolon \phi_n^{\alpha + 1}(D'^*\leq D')}
+						\ar[two heads]{r}{u\eqqcolon \phi_n^{\alpha+1}(D'^*\leq D^*)}
+					\n A=\phi_n^{\alpha+1}(D^*)
+						\ar[two heads]{d}{f = \phi_n^{\alpha+1}(D^*\leq D)}\\
+					\phi_n^\alpha(D') \ar[two heads]{r}{\phi_n^\alpha(D'\leq D)} \n \phi_n(D)
+				\end{tikzcd}
+			\]
+
+			Für $D'\leq D$ definieren wir $(\phi_n^{\alpha+1}, \phi_n^{\alpha+1}(D'^*\leq D'),
+			\phi_n^{\alpha+1}(D'^*\leq D^*))$ durch den Pullback
+			von $(f, \phi_n^\alpha(D'\leq D))$ in $\cat{A}$. Die durch den Pullback
+			definierten Morphismen sind Epimorphismen, weil $f$ und $\phi_n^\alpha(D'\leq D)$
+			Epimorphismen sind.
+			\[
+				\begin{tikzcd}[column sep=9em]
+					P=\phi_n^{\alpha+1}(D'^*)
+						\ar[two heads]{d}{x=\phi_n^{\alpha+1}(D'^*\leq D')}
+						\ar[two heads]{r}{y\eqqcolon \phi_n^{\alpha+1}(D'^*\leq D''^*)} \n
+					\phi_n^{\alpha+1}(D''^*)
+						\ar[two heads]{d}{}
+						\ar[two heads]{r}{} \n
+					A
+						\ar[two heads]{d}{f} \\
+					\phi_n^\alpha(D')
+						\ar[two heads]{r}{\phi_n^\alpha(D'\leq D'')} \n
+					\phi_n^\alpha(D'')
+						\ar[two heads]{r}{\phi_n^\alpha(D''\leq D)} \n
+					\phi_n(D)
+				\end{tikzcd}
+			\]
+			Für $D'\leq D''\leq D$ in $\cat{D}_n^\alpha$ betrachte obiges Diagramm,
+			in dem beide Quadrate Pullbacks sind. Das äußere Quadrat ist ein Pullback
+			und es ist $\phi_n^\alpha(D''\leq D)\circ\phi_n^\alpha(D'\leq D'')=\phi_n^\alpha(D'\leq D)$,
+			daher folgt $P=\phi_n^{\alpha+1}(D'^*)$
+			\textcolor{red}{(wieso steht hier $=$ und nicht $\cong$? Pullbacks sind doch nur
+			bis auf Isomorphie eindeutig.)}
+			und $x=\phi_n^{\alpha+1}(D'^*\leq D')$
+			nach vorangegangener Definiton. Wir definieren $\phi_n^{\alpha+1}(D'^*\leq D''^*)\coloneqq y$.
+
+			Für $D'\leq D$, $D'\leq D''$ in $\cat{D}_n^\alpha$ definiere
+			$\phi_n^{\alpha+1}(D'^*\leq D'')\coloneqq \phi_n^{\alpha+1}(D'\leq D'')
+			\circ\phi_n^{\alpha+1}(D'^*\leq D')$.
+
+			$\phi_n^{\alpha+1}$ ist ein Funktor aufgrund der Verknüpfungseigenschaften
+			von Pullbacks \textcolor{red}{(siehe oben)}.
+			Die Konstruktion der $\cat{D}_n^\alpha$, $\phi_n^\alpha$ stellt sicher,
+			dass die Eigenschaften gegeben sind. Insbesondere haben wir
+			$\phi_n^{\alpha+1}(D^*\leq D)=f$.
+
+			Wir zeigen noch Eigenschaft (4). Die Konstruktion von $\cat{D}_1$ läuft
+			über alle Paare $(*, f)$, wobei $f\colon A\to 0_\cat{A}$ ein Epimorphismus.
+			Es ist aber jeder Morphismus $A\to 0_\cat{A}$ ein Epimorphismus, denn
+			$0_\cat{A}$ ist initial, das heißt wenn $uf=vf$, dann kommt für $u$ und $v$
+			überhaupt nur ein Morphismus in Frage. Da $0_\cat{A}$ terminal ist,
+			haben wir für jedes $A$ in $\cat{A}$ ein entsprechendes Paar $(*, f)$,
+			und Forderung (d) liefert, was wir brauchen.
+		\end{proof}}
 
 		Die Aussagen von \ref{fin}, \ref{fact} und \ref{func} beziehen sich auf
 		die im Beweis von \ref{abeb} konstruierten
