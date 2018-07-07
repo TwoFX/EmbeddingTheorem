@@ -72,7 +72,7 @@
 	\maketitle
 	\setcounter{section}{-1}
 
-	\section{Vorbereitungen}
+	\section{Aufwärmen}
 		\begin{proposition}[Explizite Berechnung kleiner filtrierter Colimiten in $\ccat{Set}$]
 			Es sei $\cat{C}$ klein und filtriert und $F\colon \cat{C}\to\ccat{Set}$ ein
 			Funktor. Es ist $\colim_\cat{C} F = L$, wobei
@@ -84,6 +84,9 @@
 				(x\in FC) \approx (x'\in FC') \defiff \exists C''\in\cat{C}, f\colon C\to C'', g\colon C'\to C'': Ff(x) = Fg(x').
 			\]
 		\end{proposition}
+		\textcolor{red}{Wie genau funktioniert das in $\ccat{Ab}$? Borceux erwähnt nur,
+			dass der Vergissfunktor filtrierte Colimiten reflektiert, aber ich schaffe
+			es nicht mal, $L$ überhaupt zu einer abelschen Gruppe zu machen.}
 		\p{\begin{proof}
 			Zu zeigen sind:
 			\begin{enumerate}
@@ -161,12 +164,14 @@
 					Pullback (I) liefert $w=w'$.
 				\item Es sei $(A', c', a')$ der Pullback von $f$ und $d$. Mit (1) und da (II) ein Pullback ist, ist $(A', c', b\circ a')$ ein Pullback von
 					$(g\circ f, e)$. Es ist jedoch auch $(A, c, b\circ a)$ ein Pullback von $(g\circ f, e)$.
-					Da Limiten eindeutig sind, folgt $A\cong A'$.
+					Da Limiten eindeutig sind, folgt $A\cong A'$. \textcolor{red}{Reicht das? Borceux
+					schreibt den Isomophismus noch hin, aber ich glaube, das hier zeigt schon die
+					Behauptung.}
 			\end{enumerate}
 		\end{proof}}
 		\begin{proposition}
 			In einer Kategorie $\cat{C}$ sei $f\colon A\to B$ der Coequalizer von
-			$x, y\colon X\rightrightarrows A$. Weiter existierte der Pullback
+			$x, y\colon X\rightrightarrows A$. Weiter existiere der Pullback
 			$\alpha, \beta\colon P\rightrightarrows A$ von $(f, f)$. Dann ist
 			$f$ auch der Coequalizer von $(\alpha, \beta)$.
 		\end{proposition}
@@ -180,9 +185,11 @@
 				$g\circ\alpha = g\circ\beta$, so gilt $g\circ x = g\circ\alpha\circ z
 				= g\circ\beta\circ z = g\circ y$. Es ist aber $f$ der Coequalizer von
 				$(x, y)$, also existiert ein eindeutiges $h$ mit $g = h\circ f$.
+				\textcolor{red}{\LaTeX{} macht komische Dinge mit der vertikalen
+				Anordnung der Abbildung\dots}
 			\end{proof}
 		\end{minipage}%
-		\begin{minipage}[t]{0.25\textwidth}
+		\begin{minipage}[t][0.25\textwidth][t]{0.25\textwidth}
 			\[
 				\begin{tikzcd}[sep=1.4em]
 					\n X \ar{dl}[']{z} \ar[shift left]{d}{y} \ar[shift right, ']{d}{x} \n \\
@@ -227,7 +234,9 @@
 
 		Die Aussagen von \ref{fin}, \ref{fact} und \ref{func} beziehen sich auf
 		die im Beweis von \ref{abeb} konstruierten
-		Wahlen für $\cat{D}$ und $\phi$.
+		Wahlen für $\cat{D}$ und $\phi$. \textcolor{red}{Ergibt es überhaupt Sinn,
+		diese Sätze auf dem Handout zu haben, wenn der Beweis von \ref{abeb}
+		nicht drauf ist?}
 		\begin{defle}\label{fin}
 			Für alle Objekte $D_1,D_2\in\cat{D}$ ist das Segment
 				\[
