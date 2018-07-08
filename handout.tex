@@ -58,6 +58,7 @@
 \newcommand{\down}[1]{{\downarrow}#1}
 \newcommand{\p}[1]{\iftoggle{proofs}{#1}{}}
 \newcommand{\n}{\pgfmatrixnextcell}
+\newcommand\nat\Rightarrow
 
 \DeclareMathOperator{\colim}{colim}
 \DeclareMathOperator{\id}{id}
@@ -170,7 +171,7 @@
 					Behauptung.}
 			\end{enumerate}
 		\end{proof}}
-		\begin{proposition}
+		\begin{proposition}\label{2-5-7}
 			In einer Kategorie $\cat{C}$ sei $f\colon A\to B$ der Coequalizer von
 			$x, y\colon X\rightrightarrows A$. Weiter existiere der Pullback
 			$\alpha, \beta\colon P\rightrightarrows A$ von $(f, f)$. Dann ist
@@ -528,15 +529,14 @@
 			Der verbleibende Fall ist $D_1=D_0^*$, $D_2\in\cat{D}_n^\alpha$. Der Index
 			$\alpha + 1$ bezeichne das Paar $(\overline{D}, \overline{f})$. Falls
 			$D_0 = \overline{D}$, so ist $D_1$ das einzige Objekt aus $[D_1, D_2]\cap\down{\overline{D}}$,
-			also gilt $\set{D\given D_1\leq D\leq D_2}=[\overline{D}, D_2]$. Dieses Segment
+			also gilt $\set{D\given D_1<D\leq D_2}=[\overline{D}, D_2]$. Dieses Segment
 			hat aber das initiale Objekt $\overline{D}$, also ist der gesuchte Limes gerade
 			$\phi(\overline{D})$ (ohne Beweis: Hat $\cat{C}$ ein initiales Objekt $0_\cat{C}$, so ist
 			$\lim_\cat{C} F = F(0_\cat{C})$) und die Faktorisierung ist $\overline{f}$ nach
 			Konstruktion.
 
-			Falls $D_1=D_0^*<\overline{D}^*$ und $D_2\in\cat{D}_n^\alpha$, so ziegen wir,
-			dass der Limes gerade $\phi(D_1)$ ist und die Faktorisierung durch die Identität gegeben
-			ist. Sei dazu $D_3\coloneqq D_2\wedge\overline{D}\in\cat{D}_n^\alpha$.
+			Ohne Beweis: Falls $D_1=D_0^*<\overline{D}^*$ und $D_2\in\cat{D}_n^\alpha$,
+			so ist der Limes gerade $\phi(D_1)$ und die Faktorisierung durch die Identität gegeben.
 		\end{proof}}
 		\begin{lemma}\label{func}
 			Es sei $D_0\in\cat{D}$ ein Objekt und $\Gamma\colon \down{D_0}\to\cat{A}$
@@ -546,8 +546,8 @@
 					\Gamma(D_1) \arrow[r] & \lim_{D_1<D\leq D_2} \Gamma(D)
 				\end{tikzcd}
 			\]
-			ein Epimorphismus sei. Weiter sei $F\colon\cat{A}\to\ccat{Ab}$ ein
-			Funktor und $\alpha_{D_0}\colon \cat{A}(\Gamma D_0, {-})\Rightarrow F$
+			ein Epimorphismus sei. Weiter sei $F\colon\cat{A}\to\ccat{Ab}$ ein exakter
+			Funktor und $\alpha_{D_0}\colon \cat{A}(\Gamma D_0, {-})\nat F$
 			eine natürliche Transformation. Dann besitzt $\alpha_{D_0}$ die
 			Faktorisierung
 			\[
@@ -557,8 +557,148 @@
 			\]
 			$s_{D_0}$ ist hierbei der kanonische Morphismus des Colimes.
 		\end{lemma}
+		\p{\begin{proof}
+			Eine Teilmenge $S\subseteq\down{D_0}$ nennen wir finales Segment von
+			$D_0$, falls $D\in S \wedge D\leq D'\leq D_0 \implies D'\in S$.
+
+			Es sei $\mathcal{S}$ die Menge aller Paare $(S, (\alpha_D)_{D\in S})$
+			für die gilt:
+			\begin{enumerate}[label=(\arabic*),noitemsep]
+				\item $S$ ist finales Segment von $\down{D_0}$,
+				\item Die $\alpha_D\colon\cat{A}(\Gamma(D), {-})\nat F$ mit $D\in S$ bilden einen Cokegel (in $\ccat{Ab}^\cat{A}$).
+			\end{enumerate}
+			Wir definieren eine Halbordnung auf $\mathcal{S}$ durch
+			\[
+				(S, (\alpha_D)_{D\in S})\leq (S', (\alpha_D')_{D\in S})\defiff S\subseteq S'\wedge \forall D\in S: \alpha_D'=\alpha_D.
+			\]
+			Jede aufsteigende Kette in $\mathcal{S}$ hat eine obere Schranke (durch
+			Vereinigung und Erweiterung). Das Lemma von Zorn liefert ein maximales
+			Element $(\overline{S}, (\alpha_D)_{D\in\overline{S}})$. Falls $\overline{S}=\down{D_0}$,
+			so haben wir einen Cokegel in der Funktorkategorie gefunden, der zu dem in der Behauptung
+			gegebenen Colimes passt und damit auch die zugehörige Faktorisierung.
+
+			Falls $\overline{S}\neq\down{D_0}$, existiert $D_1\leq D_0$, $D_1\notin\overline{S}$.
+			Das Segment $[D_1, D_0]$ ist endlich nach \ref{fin} und daher finden wir
+			ein $D_2\in [D_1, D_0]$ mit $D_2\notin\overline{S}$, $\forall D\in\overline{S}:D_2<D\leq D_0$.
+			Das Yoneda-Lemma ordnet für jedes $D$ mit $D_2<D\leq D_0$ der natürlichen
+			Transformation $\alpha_D\colon\cat{A}(\Gamma(D),{-})\nat F$ ein Element $a_D\in F\Gamma(D)$ zu.
+			\textcolor{red}{Das Buch schreibt jetzt \enquote{Da $F$ linksexakt ist und nur endlich
+			viele $D$ vorkommen, korrespondiert die Familie $a_D$ mit einem Element $a\in F(\lim\Gamma(D))$.}
+			Hier geht es offenbar darum, dass $F$ endliche Limiten erhält, aber mir ist vollkommen schleierhaft,
+			was hier passiert und
+			wie wir an das $a$ kommen und was es bedeutet, sodass ich in dem Beweis nicht weiter fortschreiten kann.}
+
+			\textcolor{red}{Abgesehen davon ist mir nicht klar, an welcher Stelle der Beweis erzwingt,
+			dass das $\alpha_{D_0}$, das in dem Paar $(\overline{S}, (\alpha_D)_{D\in\overline{S}})$ vorkommt,
+			mit dem $\alpha_{D_0}$ aus der Voraussetzung übereinstimmt.}
+		\end{proof}}
 		\begin{theorem}[von der volltreuen Einbettung; Einbettungssatz von Freyd-Mitchell]
 			Für jede kleine abelsche Kategorie existieren ein Ring $R$ und eine volltreue
 			und exakte Einbettung in die Kategorie $\ccat{Mod}_R$ der $R$-Moduln.
 		\end{theorem}
+		\p{\begin{proof}
+			Es sei $U\colon\cat{A}\to\ccat{Ab}$ wie in \ref{abeb} konstruiert und
+			$\ccat{Nat}(U, U)$ die abelsche Gruppe der natürlichen Transformationen
+			von $U$ nach $U$ (Kategorie der additiven Funktoren ist präadditiv). Zusammen mit einer
+			durch Komposition definierten Multiplikation wird diese Gruppe zu einem
+			Ring $R\coloneqq\ccat{Nat}(U, U)$. Dass das aufgeht, liegt daran, dass
+			$\cat{A}$ und $\ccat{Add}(\cat{A}, \ccat{Ab})$ präadditiv sind.
+
+			Für ein Objekt $A\in\cat{A}$ definieren wir eine Skalarmultiplikation
+			$R\cross U(A)\to U(A)$; $(r, x)\mapsto r_A(x)$. Man rechnet nach, dass
+			das tatsächlich eine $R$-Modulstruktur auf $U(A)$ definiert und verwendet
+			dabei, dass $r_A$ ein Gruppenhomomorphismus ist und dass die Addition
+			auf $R$ punktweise funktioniert.
+
+			Es sei $f\colon A\to B$ ein Pfeil in $\cat{A}$. Wir haben für $x\in U(A)$ die
+			Identität $r\cdot (Uf)(x) = r_B((Uf)(x)) = (Uf)(r_A(x)) = (Uf)(r\cdot x)$,
+			denn $r$ ist eine natürliche Transformation. $Uf$ ist also $R$-linear.
+
+			Insgesamt erhalten wir, dass wir das Bild von $U$ anstatt als abelsche Gruppen
+			und Gruppenhomomorphismen auch als $R$-Moduln und $R$-lineare Abbildungen
+			auffassen können. Nobel ausgedrückt haben wir die Faktorisierung
+			\begin{tikzcd}
+				\cat{A} \ar{r}{V} \n \ccat{Mod}_R \ar{r}{W} \n \ccat{Ab}
+			\end{tikzcd}
+			von $U$, wobei $W$ einfach die $R$-Modulstruktur vergisst.
+			Der Funktor $V$ ist unsere Einbettung. Da Limiten und Colimiten
+			in $\ccat{Mod}_R$ genauso funktionieren wie in $\ccat{Ab}$ \textcolor{red}{(achja?)},
+			erbt $V$ die Exaktheit von $U$. Da $U$ treu ist, muss auch $V$ treu sein.
+			Das einzige, was sich verändert hat, ist dass in $\ccat{Mod}_R$ die
+			Morphismengruppen zwischen zwei Objekten, auf die unser Funktor abbildet,
+			jetzt kleiner sind, da wir ja auch $R$-Linearität fordern. Wir werden jetzt
+			noch zeigen, dass wir sie genau so kleiner gemacht haben, dass $V$ voll
+			ist.
+
+			Es sei zunächst $A\in\cat{A}$, $p_A\colon A\to 0_\cat{A}$ der Epimorphismus
+			zum Nullelement und $\alpha+1$ die zu $(*, p_A)$ gehörende Ordinalzahl
+			in der Konstruktion von $\cat{D}_1$. $\cat{D}_0^{\alpha+1}$ entsteht durch
+			Kopie von $\down{*}=\cat{D}_0^\alpha$. $\delta_A$ sei die Kopie von $*$,
+			die auf diese Weise entsteht. Es gibt nach Konstruktion $\phi(\delta_A)=A$,
+			$\phi(\delta_A\leq *)=p_A$.
+			\[
+				\begin{tikzcd}[column sep=4em]
+					\pi(D)
+						\ar[shift left]{r}{u_D}
+						\ar[shift right, ']{r}{v_D}
+						\ar{d}{\pi(D\leq D')} \n
+					\phi(D)
+						\ar{r}{\phi(D\leq\delta_A)}
+						\ar{d}{\phi(D\leq D')} \n
+					A
+						\ar{d}{\id_A} \\
+					\pi(D')
+						\ar[shift left]{r}{u_{D'}}
+						\ar[shift right, ']{r}{v_{D'}} \n
+					\phi(D')
+						\ar{r}{\phi(D'\leq\delta_A)} \n
+					A
+				\end{tikzcd}
+			\]
+			Es sei $D\leq\delta_A$. Im Diagramm sei $(u_D, v_D)$ der Pullback von $\phi(D\leq\delta_A)$ mit
+			sich selbst. Für $D\leq D'\leq\delta_A$ sei weiter $(u_{D'}, v_{D'})$
+			der Pullback von $\phi(D'\leq\delta_A)$ mit sich selbst. Definieren
+			$\pi(D)$ und $\pi(D')$ als die zugehörigen Objekte. Das rechte
+			Quadrat kommutiert, da $\phi$ ein Funktor ist. Die universelle Eigenschaft
+			des unteren Pullbacks liefert einen eindeutigen Morphismus $\pi(D)\to\pi(D')$,
+			der als Definition von $\pi(D\leq D')$ dienen soll. Auf diese Weise erhalten wir
+			einen Funktor $\pi\colon\down{\delta_A}\to\cat{A}$.
+
+			$\phi(D\leq\delta_A)$ ist ein Epimorphismus, also ein Cokern, also ein
+			Coequalizer. \ref{2-5-7} verrät uns, dass $\phi(D\leq\delta_A)$ auch der
+			Coequalizer von $(u_D, v_D)$ ist. Wenn wir darauf die kontravariante
+			Yoneda-Einbettung anwenden, werden Colimiten in Limiten transformiert
+			(Vortrag) und wir erhalten folgenden Equalizer:
+			\[
+				\begin{tikzcd}[column sep=7em]
+					\cat{A}(\pi D,{-}) \n
+					\cat{A}(\phi D, {-})
+						\ar[shift right, ']{l}{\cat{A}(u_D,{-})}
+						\ar[shift left]{l}{\cat{A}(v_D,{-})} \n
+					\cat{A}(A, {-})
+						\ar[']{l}{\cat{A}(\phi(D\leq\delta_A),{-})}
+				\end{tikzcd}
+			\]
+			Man nehme überall den Colimes über $\down{\delta_A}$:
+			\[
+				\begin{tikzcd}
+					P \n
+					U
+						\ar[shift right, ']{l}{u}
+						\ar[shift left]{l}{v} \n
+					\cat{A}(A,{-})
+						\ar[tail,']{l}{w}
+				\end{tikzcd}
+			\]
+			In der Mitte steht tatsächlich $U$, denn $\down{\delta_A}$ ist
+			initial in $\cat{D}$ (ohne Beweis\textcolor{red}{, aber ich sollte zumindest
+			präzisieren, was mit \enquote{initial} hier gemeint ist\dots{} Borceux macht das
+			mit finalen Funktoren, geht das auch einfacher?}). Rechts steht
+			$\cat{A}(A,{-})$, weil der Ausdruck ja gar nicht von $D$ abhängt.
+			Weil wir endliche Limiten und filtrierte Colimiten vertauschen dürfen
+			(das hat uns Paul in $\ccat{Set}$ gezeigt, und wir glauben das mal wieder
+			in $\ccat{Ab}$), ist $w$ der Equalizer von $(u, v)$.
+
+			\textcolor{red}{Hier geht es dann Montagnachmittag weiter\dots}
+		\end{proof}}
 \end{document}
