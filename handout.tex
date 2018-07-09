@@ -149,7 +149,7 @@
 					(I) ein Pullback.
 			\end{enumerate}
 		\end{proposition}
-		\p{\begin{proof}
+		\p{\begin{proof}\leavevmode
 			\begin{enumerate}
 				\item Es seien $x\colon X\to D$, $y\colon X\to C$ mit $g\circ f\circ x = e\circ y$.
 					Pullback (II) liefert ein eindeutiges $z\colon X\to B$, sodass
@@ -163,10 +163,9 @@
 					Pullback (I) liefert $w=w'$.
 				\item Es sei $(A', c', a')$ der Pullback von $f$ und $d$. Mit (1) und da (II) ein Pullback ist, ist $(A', c', b\circ a')$ ein Pullback von
 					$(g\circ f, e)$. Es ist jedoch auch $(A, c, b\circ a)$ ein Pullback von $(g\circ f, e)$.
-					Da Limiten eindeutig sind, folgt $A\cong A'$. \textcolor{red}{Reicht das? Borceux
-					schreibt den Isomophismus noch hin, aber ich glaube, das hier zeigt schon die
-					Behauptung.}
-			\end{enumerate}
+					Da Limiten eindeutig sind, folgt $A\cong A'$.
+					% TODO FIXME AAAAAA
+					\end{enumerate}
 		\end{proof}}
 		\begin{proposition}\label{2-5-7}
 			In einer Kategorie $\cat{C}$ sei $f\colon A\to B$ der Coequalizer von
@@ -174,27 +173,22 @@
 			$\alpha, \beta\colon P\rightrightarrows A$ von $(f, f)$. Dann ist
 			$f$ auch der Coequalizer von $(\alpha, \beta)$.
 		\end{proposition}
-		\p{%
-			\begin{minipage}{0.75\textwidth}%
-			\begin{proof}
-				Es sei $f$ der Coequalizer von $(x, y)$ und $(\alpha, \beta)$ der
-				Pullback von $(f, f)$. Wegen $f\circ x = f\circ y$ existiert ein
-				eindeutiger Morphismus $z\colon X \to P$ mit $\alpha\circ z = x$,
-				$\beta\circ z=y$. Ist nun $g\colon A\to C$ ein Morphismus mit
-				$g\circ\alpha = g\circ\beta$, so gilt $g\circ x = g\circ\alpha\circ z
-				= g\circ\beta\circ z = g\circ y$. Es ist aber $f$ der Coequalizer von
-				$(x, y)$, also existiert ein eindeutiges $h$ mit $g = h\circ f$.
-			\end{proof}
-		\end{minipage}%
-		\begin{minipage}[t][0.25\textwidth][t]{0.25\textwidth}
-			\[
-				\begin{tikzcd}[sep=1.4em]
-					\n X \ar{dl}[']{z} \ar[shift left]{d}{y} \ar[shift right, ']{d}{x} \n \\
-					P \ar[shift left]{r}{\alpha} \ar[shift right, ']{r}{\beta} \n \ar{d}{g} A \ar{r}{f} \n \ar{dl}{h} B \\
-					\n C \n
-				\end{tikzcd}
-			\]
-		\end{minipage}}
+		\begin{proof}
+		\[
+			\begin{tikzcd}[sep=1.4em]
+				\n X \ar{dl}[']{z} \ar[shift left]{d}{y} \ar[shift right, ']{d}{x} \n \\
+				P \ar[shift left]{r}{\alpha} \ar[shift right, ']{r}{\beta} \n \ar{d}{g} A \ar{r}{f} \n \ar{dl}{h} B \\
+				\n C \n
+			\end{tikzcd}
+		\]
+			Es sei $f$ der Coequalizer von $(x, y)$ und $(\alpha, \beta)$ der
+			Pullback von $(f, f)$. Wegen $f\circ x = f\circ y$ existiert ein
+			eindeutiger Morphismus $z\colon X \to P$ mit $\alpha\circ z = x$,
+			$\beta\circ z=y$. Ist nun $g\colon A\to C$ ein Morphismus mit
+			$g\circ\alpha = g\circ\beta$, so gilt $g\circ x = g\circ\alpha\circ z
+			= g\circ\beta\circ z = g\circ y$. Es ist aber $f$ der Coequalizer von
+			$(x, y)$, also existiert ein eindeutiges $h$ mit $g = h\circ f$.
+		\end{proof}
 
 	\section{Der Einbettungssatz}
 		Es sei stets $\cat{A}$ eine kleine abelsche Kategorie.
@@ -573,15 +567,7 @@
 			ein $D_2\in [D_1, D_0]$ mit $D_2\notin\overline{S}$, $\forall D\in\overline{S}:D_2<D\leq D_0$.
 			Das Yoneda-Lemma ordnet für jedes $D$ mit $D_2<D\leq D_0$ der natürlichen
 			Transformation $\alpha_D\colon\cat{A}(\Gamma(D),{-})\nat F$ ein Element $a_D\in F\Gamma(D)$ zu.
-			\textcolor{red}{Das Buch schreibt jetzt \enquote{Da $F$ linksexakt ist und nur endlich
-			viele $D$ vorkommen, korrespondiert die Familie $a_D$ mit einem Element $a\in F(\lim\Gamma(D))$.}
-			Hier geht es offenbar darum, dass $F$ endliche Limiten erhält, aber mir ist vollkommen schleierhaft,
-			was hier passiert und
-			wie wir an das $a$ kommen und was es bedeutet, sodass ich in dem Beweis nicht weiter fortschreiten kann.}
-
-			\textcolor{red}{Abgesehen davon ist mir nicht klar, an welcher Stelle der Beweis erzwingt,
-			dass das $\alpha_{D_0}$, das in dem Paar $(\overline{S}, (\alpha_D)_{D\in\overline{S}})$ vorkommt,
-			mit dem $\alpha_{D_0}$ aus der Voraussetzung übereinstimmt.}
+			% TODO FIXME AAAAAAAA
 		\end{proof}}
 		\begin{theorem}[von der volltreuen Einbettung; Einbettungssatz von Freyd-Mitchell]
 			Für jede kleine abelsche Kategorie existieren ein Ring $R$ und eine volltreue
@@ -661,13 +647,13 @@
 			Yoneda-Einbettung anwenden, werden Colimiten in Limiten transformiert
 			(Vortrag) und wir erhalten folgenden Equalizer:
 			\[
-				\begin{tikzcd}[column sep=7em]
+				\begin{tikzcd}[column sep=6em]
 					\cat{A}(\pi D,{-}) \n
 					\cat{A}(\phi D, {-})
 						\ar[shift right, ']{l}{u_D^*}
 						\ar[shift left]{l}{v_D^*} \n
 					\cat{A}(A, {-})
-						\ar[']{l}{\cat{A}(\phi(D\leq\delta_A),{-})}
+						\ar[']{l}{\phi(D\leq\delta_A)^*}
 				\end{tikzcd}
 			\]
 			Man nehme überall den Colimes über $\down{\delta_A}$:
@@ -682,9 +668,7 @@
 				\end{tikzcd}
 			\]
 			In der Mitte steht tatsächlich $U$, denn $\down{\delta_A}$ ist
-			initial in $\cat{D}$ (ohne Beweis\textcolor{red}{, aber ich sollte zumindest
-			präzisieren, was mit \enquote{initial} hier gemeint ist\dots{} Borceux macht das
-			mit finalen Funktoren, geht das auch einfacher?}). Rechts steht
+			initial in $\cat{D}$ (ohne Beweis). Rechts steht
 			$\cat{A}(A,{-})$, weil der Ausdruck ja gar nicht von $D$ abhängt.
 			Weil wir endliche Limiten und filtrierte Colimiten vertauschen dürfen
 			(das hat uns Paul in $\ccat{Set}$ gezeigt, und wir glauben das mal wieder
@@ -827,6 +811,7 @@
 			Wähle also $z\in U(\phi(D))$ mit $U(y)(z)=x$. Es sei $\xi\colon\cat{A}(\phi(D),{-})\nat U$
 			die zugehörige natürliche Transformation. Aus $U(y)(z)=x$ folgt
 			$\xi\circ y^*=\chi$. Wegen \ref{fact} erfüllt $U$ die Voraussetzungen
+			% TODO FIXME AAAAAA
 			von \ref{func} und wir erhalten $r\colon U\to U$ mit $r\circ s_D = \xi$.
 			Weiter gilt
 			\[
@@ -836,8 +821,8 @@
 			\begin{align*}
 				\varphi(x) &= \varphi(\chi_A(\id_A))\\
 					&= \varphi(r_A\circ w_A(\id_A))\\
-					&= (r_B\circ\varphi)(w_A(id_A))\\
-					&= r_B(\phi(a))\\
+					&= (r_B\circ\varphi)(w_A(\id_A))\\
+					&= r_B(\varphi(a))\\
 					&= r_B(\beta_B(\id_B))\\
 					&= r_B((w_B \circ f^*_B)(\id_B))\\
 					&= (r_B\circ w_B\circ f^*_B)(\id_B)\\
