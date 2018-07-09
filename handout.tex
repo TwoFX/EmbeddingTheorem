@@ -86,9 +86,6 @@
 				(x\in FC) \approx (x'\in FC') \defiff \exists C''\in\cat{C}, f\colon C\to C'', g\colon C'\to C'': Ff(x) = Fg(x').
 			\]
 		\end{proposition}
-		\textcolor{red}{Wie genau funktioniert das in $\ccat{Ab}$? Borceux erwähnt nur,
-			dass der Vergissfunktor filtrierte Colimiten reflektiert, aber ich schaffe
-			es nicht mal, $L$ überhaupt zu einer abelschen Gruppe zu machen.}
 		\p{\begin{proof}
 			Zu zeigen sind:
 			\begin{enumerate}[noitemsep]
@@ -187,8 +184,6 @@
 				$g\circ\alpha = g\circ\beta$, so gilt $g\circ x = g\circ\alpha\circ z
 				= g\circ\beta\circ z = g\circ y$. Es ist aber $f$ der Coequalizer von
 				$(x, y)$, also existiert ein eindeutiges $h$ mit $g = h\circ f$.
-				\textcolor{red}{\LaTeX{} macht komische Dinge mit der vertikalen
-				Anordnung der Abbildung\dots}
 			\end{proof}
 		\end{minipage}%
 		\begin{minipage}[t][0.25\textwidth][t]{0.25\textwidth}
@@ -398,8 +393,6 @@
 			in dem beide Quadrate Pullbacks sind. Das äußere Quadrat ist ein Pullback
 			und es ist $\phi_n^\alpha(D''\leq D)\circ\phi_n^\alpha(D'\leq D'')=\phi_n^\alpha(D'\leq D)$,
 			daher folgt $P=\phi_n^{\alpha+1}(D'^*)$
-			\textcolor{red}{(wieso steht hier \enquote{$=$} und nicht \enquote{$\cong$}? Pullbacks sind doch nur
-			bis auf Isomorphie eindeutig.)}
 			und $x=\phi_n^{\alpha+1}(D'^*\leq D')$
 			nach vorangegangener Definiton. Wir definieren $\phi_n^{\alpha+1}(D'^*\leq D''^*)\coloneqq y$.
 
@@ -408,7 +401,7 @@
 			\circ\phi_n^{\alpha+1}(D'^*\leq D')$.
 
 			$\phi_n^{\alpha+1}$ ist ein Funktor aufgrund der Verknüpfungseigenschaften
-			von Pullbacks \textcolor{red}{(siehe oben)}.
+			von Pullbacks.
 			Die Konstruktion der $\cat{D}_n^\alpha$, $\phi_n^\alpha$ stellt sicher,
 			dass die Eigenschaften gegeben sind. Insbesondere haben wir
 			$\phi_n^{\alpha+1}(D^*\leq D)=f$.
@@ -424,9 +417,7 @@
 
 		Die Aussagen von \ref{fin}, \ref{fact} und \ref{func} beziehen sich auf
 		die im Beweis von \ref{abeb} konstruierten
-		Wahlen für $\cat{D}$ und $\phi$. \textcolor{red}{Ergibt es überhaupt Sinn,
-		diese Sätze auf dem Handout zu haben, wenn der Beweis von \ref{abeb}
-		nicht drauf ist?}
+		Wahlen für $\cat{D}$ und $\phi$.
 		\begin{defle}\label{fin}
 			Für alle Objekte $D_1,D_2\in\cat{D}$ ist das Segment
 				\[
@@ -520,7 +511,7 @@
 			nach Konstruktion. Da ein Grenzkegel ein Kegel ist, gilt
 			$\phi(D\leq D_{00})\circ p_D = p_{D_{00}}$, $\phi(D^*\leq D_{00}^*)\circ p_{D^*}
 			= p_{D_{00}^*}$. Wir haben also ein Rechteck (2-3), bei dem
-			es sich gerade um den Limes der Pullbacks (3) handelt \textcolor{red}{(warum?)}. Durch Vertauschung
+			es sich gerade um den Limes der Pullbacks (3) handelt. Durch Vertauschung
 			von Limiten ist auch (2-3) ein Pullback. Da aber auch das äußere Rechteck
 			nach Konstruktion ein Pullback ist, liefert \ref{2-5-9}, dass auch (1) ein
 			Pullback ist. Nach Induktionsvoraussetzung ist $f$ ein Epimorphismus, also ist auch
@@ -622,7 +613,7 @@
 			\end{tikzcd}
 			von $U$, wobei $W$ einfach die $R$-Modulstruktur vergisst.
 			Der Funktor $V$ ist unsere Einbettung. Da Limiten und Colimiten
-			in $\ccat{Mod}_R$ genauso funktionieren wie in $\ccat{Ab}$ \textcolor{red}{(achja?)},
+			in $\ccat{Mod}_R$ genauso funktionieren wie in $\ccat{Ab}$,
 			erbt $V$ die Exaktheit von $U$. Da $U$ treu ist, muss auch $V$ treu sein.
 			Das einzige, was sich verändert hat, ist dass in $\ccat{Mod}_R$ die
 			Morphismengruppen zwischen zwei Objekten, auf die unser Funktor abbildet,
@@ -673,8 +664,8 @@
 				\begin{tikzcd}[column sep=7em]
 					\cat{A}(\pi D,{-}) \n
 					\cat{A}(\phi D, {-})
-						\ar[shift right, ']{l}{\cat{A}(u_D,{-})}
-						\ar[shift left]{l}{\cat{A}(v_D,{-})} \n
+						\ar[shift right, ']{l}{u_D^*}
+						\ar[shift left]{l}{v_D^*} \n
 					\cat{A}(A, {-})
 						\ar[']{l}{\cat{A}(\phi(D\leq\delta_A),{-})}
 				\end{tikzcd}
@@ -698,7 +689,161 @@
 			Weil wir endliche Limiten und filtrierte Colimiten vertauschen dürfen
 			(das hat uns Paul in $\ccat{Set}$ gezeigt, und wir glauben das mal wieder
 			in $\ccat{Ab}$), ist $w$ der Equalizer von $(u, v)$.
+			\[
+				\begin{tikzcd}[column sep=4em]
+					\lim_{D_1<D\leq D_2}\pi(D)
+						\ar[shift left]{r}{\lim u_D}
+						\ar[shift right, ']{r}{\lim v_D} \n
+					\lim_{D_1<D\leq D_2}\phi(D)
+						\ar{r}{l} \n
+					A
+				\end{tikzcd}
+			\]
+			Es seien $D_1\leq D_2\leq\delta_A$. Im Diagramm wurde bei der Definition
+			von $\pi(D)$, die ja ein Kernel Pair war, überall der Limes genommen.
+			Durch Vertauschung von Limiten ist auch dieses Diagramm wieder ein
+			Kernel Pair.
+			\[
+				\begin{tikzcd}[sep=3em]
+					\pi(D_1)
+						\ar[two heads]{r}{}
+						\ar[two heads]{d}{} \n
+					\bullet
+						\ar{r}{}
+						\ar[two heads]{d}{} \n
+					\phi(D_1)
+						\ar[two heads]{d}{m} \\
+					\bullet
+						\ar[two heads]{r}{}
+						\ar[two heads]{d}{} \n
+					\lim\pi(D)
+						\ar{r}{}
+						\ar{d}{} \n
+					\lim\phi(D)
+						\ar{d}{l} \\
+					\phi(D_1)
+						\ar[two heads]{r}{m} \n
+					\lim\phi(D)
+						\ar{r}{l} \n
+					A
+				\end{tikzcd}
+			\]
+			$m$ ist ein Epimorphismus nach \ref{fact}. $l\circ m$ ist gerade
+			$\phi(D_1\leq\delta_A)$, also ist der Pullback des äußeren Quadrats
+			gerade die Definition von $\pi(D_1)$. Da $m$ ein Epimorphismus ist,
+			erhalten wir, dass die Faktorisierung $\pi(D_1)\to\lim\pi(D)$ ein
+			Epimorphismus ist. In anderen Worten: $\pi$ erfüllt die Voraussetzungen
+			von \ref{func}.
 
-			\textcolor{red}{Hier geht es dann Montagnachmittag weiter\dots}
+			Es seien $A, B\in\cat{A}$ und $\varphi\colon U(A)\to U(B)$ ein
+			$R$-Modulhomomorphismus. Das vorhin konstruierte $w\colon \cat{A}(A,{-})\nat U$
+			korrespondiert nach dem Yoneda-Lemma mit $a = w_A(\id_A)\in U(A)$.
+			Wieder das Yoneda-Lemma ordnet $\varphi(a)\in U(B)$ eine natürliche
+			Transformation $\beta\colon\cat{A}(B,{-})\nat U$ zu, wobei
+			$\beta_C(g) = U(g)(\varphi(a))$.
+			\[
+				\begin{tikzcd}
+					P
+						\ar[bend left=90]{r}{t} \n
+					U
+						\ar[shift right,']{l}{u}
+						\ar[shift left]{l}{v} \n
+					\cat{A}(A,{-})
+						\ar[tail]{l}{w} \\ \n
+					\cat{A}(B,{-})
+						\ar{u}{\beta}
+						\ar[densely dotted, ']{ru}{f^*}
+				\end{tikzcd}
+			\]
+			Wir wollen zeigen: $u\circ\beta=v\circ\beta$. Da $w$ der Equalizer
+			von $(u, v)$ ist, gibt es dann eine eindeutige Faktorisierung, die nach
+			dem Yoneda-Lemma die Form $f^*$ für irgendein $f\colon A\to B$ annimmt.
+
+			Angenommen, es wäre $u\circ\beta\neq v\circ\beta$. $\beta$ korrespondiert
+			mit $\phi(a)\in U(B) = \colim_{D\leq\delta_B}\cat{A}(\phi(D), B)$, ist
+			also die Äquivalenzklasse eines Morphismus $x\colon\phi(D)\to B$ für
+			irgendein $D\leq\delta_B$. Wenn $u\circ\beta\neq v\circ\beta$, dann muss
+			auch $x\circ u_D\neq x\circ v_D$, was man am Diagramm abliest, denn die
+			linken beiden Dreiecke kommutieren:
+			\[
+				\begin{tikzcd}[sep=4em]
+					\cat{A}(B,{-})
+						\ar[shift left]{r}{u\circ\beta}
+						\ar[shift right, ']{r}{v\circ\beta}
+						\ar[shift left]{dr}{(x\circ u_D)^*}
+						\ar[shift right, ']{dr}{(x\circ v_D)^*} \n
+					P
+						\ar[densely dotted]{r}{t} \n
+					U \\ \n
+					\cat{A}(\pi(D),{-})
+						\ar[tail]{ru}{w'}
+						\ar{u}{s_D}
+				\end{tikzcd}
+			\]
+			Der Monomorphismus $w'$ entsteht aus der Konstruktion für $w$, indem
+			man für $A$ konkret $\pi(D)$ einsetzt. \ref{fact} liefert die Faktorisierung
+			$t\colon P\to U$ mit $t\circ s_A=w'$. Da $w'$ ein Monomorphismus ist, erhalten
+			wir $t\circ u\circ\beta=w'\circ(x\circ u_D)^*\neq w'\circ(x\circ v_D)^*=t\circ v\circ\beta$.
+			Auf der anderen Seite sind $t\circ u, t\circ v\in R$, und für alle $C\in\cat{A}$,
+			$g\colon B\to C$ haben wir
+			\begin{align*}
+				(t_C\circ u_C\circ \beta_C)(g) &= (t\circ u)\cdot((U(g)\circ\varphi)(a))\\
+					&= (U(g)\circ\varphi)((t\circ u)\cdot a)\\
+					&= (U(g)\circ\varphi)((t\circ u)\cdot w_A(\id_A))\\
+					&= (U(g)\circ\varphi)((t_A\circ u_A\circ w_A)(\id_A))\\
+					&= (U(g)\circ\varphi)((t_A\circ v_A\circ w_A)(\id_A))\\
+					&= (U(g)\circ\varphi)((t\circ v)\cdot w_A(\id_A))\\
+					&= (U(g)\circ\varphi)((t\circ v)\cdot a)\\
+					&= (t\circ v)\cdot((U(g)\circ\varphi)(a))\\
+					&= (t_C\circ v_C\circ\beta_C)(g),
+			\end{align*}
+			woraus aber $t\circ u\circ\beta=t\circ v\circ\beta$ folgt, ein Widerspruch.
+			Wir haben also unser $f\colon A\to B$ bekommen und werden nun zeigen, dass
+			tatsächlich $U(f)=\varphi$ gilt.
+			\[
+				\begin{tikzcd}[sep=3em]
+					U \n
+					\cat{A}(\phi(D),{-})
+						\ar[']{l}{\xi}
+						\ar{d}{s_D} \\
+					\cat{A}(A,{-})
+						\ar{u}{\chi}
+						\ar[tail, near start]{ru}{y^*}
+						\ar[tail, ']{r}{w} \n
+					U
+						\ar[densely dotted, near start]{ul}{r}
+				\end{tikzcd}
+			\]
+			Es sei $x\in U(A)$. $\chi\colon\cat{A}(A,{-})\nat U$
+			sei die von $x$ durch das Yoneda-Lemma erhaltene natürliche Transformation.
+			Sei weiter $y\colon\phi(D)\to\cat{A}$, sodass $[y]_\approx\in U(A)$ mit
+			$w\colon\cat{A}(A,{-})\nat U$ von vorhin korrespondiert.
+			Wir haben $s_D\circ y^*=w$. $w$ ist aber ein Monomorphismus, also
+			muss auch $y^*$ ein Monomorphismus sein. Wenn wir also
+			$p, q\colon A\rightrightarrows B$ haben, so gilt
+			$y^*\circ p^* = y^*\circ q^*\implies p=q$, also $p\circ y=q\circ y\implies p=q$,
+			$y$ ist also ein Epimorphismus. Da $U$ exakt, erhält er Epimorphismen,
+			also ist $U(y)\colon U(\phi(D))\to U(A)$ ein Epimorphismus, also surjektiv.
+			Wähle also $z\in U(\phi(D))$ mit $U(y)(z)=x$. Es sei $\xi\colon\cat{A}(\phi(D),{-})\nat U$
+			die zugehörige natürliche Transformation. Aus $U(y)(z)=x$ folgt
+			$\xi\circ y^*=\chi$. Wegen \ref{fact} erfüllt $U$ die Voraussetzungen
+			von \ref{func} und wir erhalten $r\colon U\to U$ mit $r\circ s_D = \xi$.
+			Weiter gilt
+			\[
+				r\circ w = r\circ s_D\circ y^* = \xi\circ y^* = \chi.
+			\]
+			Mit letzten Kräften:
+			\begin{align*}
+				\varphi(x) &= \varphi(\chi_A(\id_A))\\
+					&= \varphi(r_A\circ w_A(\id_A))\\
+					&= (r_B\circ\varphi)(w_A(id_A))\\
+					&= r_B(\phi(a))\\
+					&= r_B(\beta_B(\id_B))\\
+					&= r_B((w_B \circ f^*_B)(\id_B))\\
+					&= (r_B\circ w_B\circ f^*_B)(\id_B)\\
+					&= \chi_B(f^*_B(\id_B))\\
+					&= \chi_B(f)\\
+					&= U(f)(x)
+			\end{align*}
 		\end{proof}}
 \end{document}
