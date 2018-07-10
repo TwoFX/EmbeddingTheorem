@@ -161,10 +161,15 @@
 					$d\circ(a\circ w') = f\circ (c\circ w') = f\circ x = f\circ c\circ w = d\circ (a\circ w)$.
 					Pullback (II) liefert $a\circ w'=a\circ w$. Weiter ist $c\circ w'= x = c\circ w$.
 					Pullback (I) liefert $w=w'$.
-				\item Es sei $(A', c', a')$ der Pullback von $f$ und $d$. Mit (1) und da (II) ein Pullback ist, ist $(A', c', b\circ a')$ ein Pullback von
+				\item Es sei $(A', c', a')$ der Pullback von $f$ und $d$.
+					Wegen $d\circ a=f\circ c$ erhalten wir eine eindeutige Faktorisierung
+					$h\colon A\to A'$ mit $a'\circ h=a$, $c'\circ h=c$.
+					Mit (1) und da (II) ein Pullback ist, ist $(A', c', b\circ a')$ ein Pullback von
 					$(g\circ f, e)$. Es ist jedoch auch $(A, c, b\circ a)$ ein Pullback von $(g\circ f, e)$.
-					Da Limiten eindeutig sind, folgt $A\cong A'$.
-					% TODO FIXME AAAAAA
+					Da Limiten eindeutig sind, folgt $A\cong A'$. Es gilt $c'\circ h=c$
+					und $b\circ a'\circ h = b\circ a$, also ist $h$ \emph{die} Faktorisierung
+					zwischen den beiden Pullbacks. Da Limiten eindeutig sind, ist $A\cong A'$,
+					also muss $h$ ein Isomorphismus sein.
 					\end{enumerate}
 		\end{proof}}
 		\begin{proposition}\label{2-5-7}
