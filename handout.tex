@@ -44,7 +44,7 @@
 \theorembodyfont{\normalfont\footnotesize}
 \theoremsymbol{\ensuremath{\Box}}
 \newtheorem{proof}{Beweis.}
-\theorembodyfont{\normalfont\footnotesize}
+\theorembodyfont{\normalfont}
 \theoremheaderfont{\normalfont\itshape}
 \theoremsymbol{\ensuremath{\lrcorner}}
 \newtheorem{overview}{Übersicht.}
@@ -185,14 +185,14 @@
 			$\alpha, \beta\colon P\rightrightarrows A$ von $(f, f)$. Dann ist
 			$f$ auch der Coequalizer von $(\alpha, \beta)$.
 		\end{proposition}
-		\begin{proof}
-		\[
-			\begin{tikzcd}[sep=1.4em]
-				\n X \ar{dl}[']{z} \ar[shift left]{d}{y} \ar[shift right, ']{d}{x} \n \\
-				P \ar[shift left]{r}{\alpha} \ar[shift right, ']{r}{\beta} \n \ar{d}{g} A \ar{r}{f} \n \ar{dl}{h} B \\
-				\n C \n
-			\end{tikzcd}
-		\]
+		\p{\begin{proof}
+			\[
+				\begin{tikzcd}[sep=1.4em]
+					\n X \ar{dl}[']{z} \ar[shift left]{d}{y} \ar[shift right, ']{d}{x} \n \\
+					P \ar[shift left]{r}{\alpha} \ar[shift right, ']{r}{\beta} \n \ar{d}{g} A \ar{r}{f} \n \ar{dl}{h} B \\
+					\n C \n
+				\end{tikzcd}
+			\]
 			Es sei $f$ der Coequalizer von $(x, y)$ und $(\alpha, \beta)$ der
 			Pullback von $(f, f)$. Wegen $f\circ x = f\circ y$ existiert ein
 			eindeutiger Morphismus $z\colon X \to P$ mit $\alpha\circ z = x$,
@@ -200,7 +200,7 @@
 			$g\circ\alpha = g\circ\beta$, so gilt $g\circ x = g\circ\alpha\circ z
 			= g\circ\beta\circ z = g\circ y$. Es ist aber $f$ der Coequalizer von
 			$(x, y)$, also existiert ein eindeutiges $h$ mit $g = h\circ f$.
-		\end{proof}
+		\end{proof}}
 
 	\section{Der Einbettungssatz}
 		Es sei stets $\cat{A}$ eine kleine abelsche Kategorie.
@@ -327,7 +327,7 @@
 					$\cat{D}_n^\alpha$, sodass $\phi_n^\alpha(d) = f$.
 			\end{enumerate}
 			Es sei $(\cat{D}_n^\alpha,
-			\phi_n^\alpha)$ definiert und $\alpha+1$ bezeichne das Paar $(D, f)$
+			\phi_n^\alpha)$ definiert und $\alpha+1$ bezeichne das Paar $(D, f)$.
 			$\down{D}\coloneqq\set{D'\in\cat{D}_n^\alpha\given D'\leq D}$
 			$\cat{D}_n^{\alpha+1}\coloneqq\cat{D}_n^\alpha\amalg\down{D}$. $D'^*$
 			bezeichnet die Kopie von $D'\leq D$ aus $\down{D}$. Halbordnung durch
@@ -344,8 +344,6 @@
 					\phi_n^\alpha(D') \ar[two heads]{r}{\phi_n^\alpha(D'\leq D)} \n \phi_n(D)
 				\end{tikzcd}
 			\]
-			%Eigenschaft (d) stellt also schrittweise sicher, dass Eigenschaft (5)
-			%erfüllt ist.
 		\end{overview}}
 		\p{\begin{proof}
 			Wir konstruieren eine kleine Kategorie $\cat{D}$ und einen Funktor
@@ -635,6 +633,80 @@
 			Für jede kleine abelsche Kategorie existieren ein Ring $R$ und eine volltreue
 			und exakte Einbettung in die Kategorie $\ccat{Mod}_R$ der $R$-Moduln.
 		\end{theorem}
+		\o{\begin{overview}
+			$R\coloneqq\ccat{Nat}(U, U)$. Für $A\in\cat{A}$ ist $U(A)$ durch $r\cdot x\coloneqq r_A(x)$
+			ein $R$-Modul. $U(f)$ ist $R$-linear. $V\colon\cat{A}\to\ccat{Mod}_R$ fasst das Bild von $U$
+			als $R$-Moduln und $R$-lineare Abbildungen auf; ist treu und exakt, weil $U$ es ist.
+			Zeige noch: $V$ ist voll, in mehreren Schritten:
+			\begin{itemize}[noitemsep]
+				\item Konstruktion des Funktors $\pi\colon\down{\delta_A}\to\cat{A}$ durch
+					Kernel Pairs
+					\[
+						\begin{tikzcd}[column sep=4em]
+							\pi(D)
+								\ar[shift left]{r}{u_D}
+								\ar[shift right, ']{r}{v_D}
+								\ar{d}{\pi(D\leq D')} \n
+							\phi(D)
+								\ar{r}{\phi(D\leq\delta_A)}
+								\ar{d}{\phi(D\leq D')} \n
+							A
+								\ar{d}{\id_A} \\
+							\pi(D')
+								\ar[shift left]{r}{u_{D'}}
+								\ar[shift right, ']{r}{v_{D'}} \n
+							\phi(D')
+								\ar{r}{\phi(D'\leq\delta_A)} \n
+							A
+						\end{tikzcd}
+					\]
+					\begin{itemize}[noitemsep]
+						\item Konstruktion von $u, v\colon U\nat P$ und des
+							Equalizers $w$
+						\begin{gather*}
+							\begin{tikzcd}[column sep=6em]
+								\cat{A}(\pi D,{-}) \n
+								\cat{A}(\phi D, {-})
+									\ar[shift right, ']{l}{u_D^*}
+									\ar[shift left]{l}{v_D^*} \n
+								\cat{A}(A, {-})
+									\ar[']{l}{\phi(D\leq\delta_A)^*}
+							\end{tikzcd}\\
+							\text{\rotatebox[origin=c]{270}{$\leadsto$}}\colim\\
+							\begin{tikzcd}
+								P \n
+								U
+									\ar[shift right, ']{l}{u}
+									\ar[shift left]{l}{v} \n
+								\cat{A}(A,{-})
+									\ar[tail,']{l}{w}
+							\end{tikzcd}
+						\end{gather*}
+					\end{itemize}
+				\item $\pi$ erfüllt die Voraussetzungen von \ref{func}
+				\item $V$ ist voll: Finden eines Urbilds von $\varphi\colon U(A)\to U(B)$
+					\begin{itemize}[noitemsep]
+						\item Konstruktion des Urbilds $f$ durch Faktorisierung von $\beta$ durch den Equalizer $w$
+							\[
+								\begin{tikzcd}
+									P \n
+									U
+										\ar[shift right,']{l}{u}
+										\ar[shift left]{l}{v} \n
+									\cat{A}(A,{-})
+										\ar[tail]{l}{w} \\ \n
+									\cat{A}(B,{-})
+										\ar{u}{\beta}
+										\ar[densely dotted, ']{ru}{f^*}
+								\end{tikzcd}
+							\]
+							\begin{itemize}[noitemsep]
+								\item $u\circ\beta = v\circ\beta$ durch Widerspruch
+							\end{itemize}
+						\item Nachweis, dass $U(f)=\varphi$
+					\end{itemize}
+			\end{itemize}
+		\end{overview}}
 		\p{\begin{proof}
 			Es sei $U\colon\cat{A}\to\ccat{Ab}$ wie in \ref{abeb} konstruiert und
 			$\ccat{Nat}(U, U)$ die abelsche Gruppe der natürlichen Transformationen
@@ -673,7 +745,7 @@
 			zum Nullelement und $\alpha+1$ die zu $(*, p_A)$ gehörende Ordinalzahl
 			in der Konstruktion von $\cat{D}_1$. $\cat{D}_0^{\alpha+1}$ entsteht durch
 			Kopie von $\down{*}=\cat{D}_0^\alpha$. $\delta_A$ sei die Kopie von $*$,
-			die auf diese Weise entsteht. Es gibt nach Konstruktion $\phi(\delta_A)=A$,
+			die auf diese Weise entsteht. Es gilt nach Konstruktion $\phi(\delta_A)=A$,
 			$\phi(\delta_A\leq *)=p_A$.
 			\[
 				\begin{tikzcd}[column sep=4em]
