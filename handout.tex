@@ -611,6 +611,7 @@
 			\begin{enumerate}[label=(\arabic*),noitemsep]
 				\item $S$ ist finales Segment von $\down{D_0}$,
 				\item Die $\alpha_D\colon\cat{A}(\Gamma(D), {-})\nat F$ mit $D\in S$ bilden einen Cokegel (in $\ccat{Ab}^\cat{A}$).
+				\item $\alpha_{D_0}$ stimmt mit dem aus der Behauptung überein.
 			\end{enumerate}
 			Wir definieren eine Halbordnung auf $\mathcal{S}$ durch
 			\[
@@ -627,7 +628,27 @@
 			ein $D_2\in [D_1, D_0]$ mit $D_2\notin\overline{S}$, $\forall D\in\overline{S}:D_2<D\leq D_0$.
 			Das Yoneda-Lemma ordnet für jedes $D$ mit $D_2<D\leq D_0$ der natürlichen
 			Transformation $\alpha_D\colon\cat{A}(\Gamma(D),{-})\nat F$ ein Element $a_D\in F\Gamma(D)$ zu.
-			% TODO FIXME AAAAAAAA
+			Die abelsche Gruppe $\lim_{D_2<D\leq D_0}F\Gamma(D)$ nimmt die Form
+			\[
+				\lim_{D_2<D\leq D_0}F\Gamma(D) = \set{(b_D)_D\in\prod_{D_2<D\leq D_0} F\Gamma(D)\given F\Gamma(D'\leq D'')(b_{D'}) = b_{D''}}
+			\]
+			an. Da $F$ exakt ist und der Limes endich ist, haben wir $\lim_{D_2<D\leq D_0}F\Gamma(D) = F(\lim_{D_2<D\leq D_0}\Gamma(D))$.
+			Die $a_D$ konstituieren jedoch gerade ein Objekt aus diesem Limes, denn die
+			Bedingung folgt aus der Kegeleigenschaft und der Natürlichkeit in der ersten
+			Komponente des Yoneda-Lemmas. Sei also $a\coloneqq (a_D)_D\in F(\lim\Gamma(D))$.
+
+			Die Faktorisierung $\beta\colon\Gamma(D_2)\to\lim\Gamma(D)$ ist ein Epimorphismus
+			nach Voraussetzung. $F$ ist aber exakt, also ist $F(\beta)$ ein Epimorphismus,
+			also surjektiv. Wähle also $a_{D_2}\in F\Gamma(D_2)$ mit $F(\beta)(a_{D_2})=a$.
+			Dann gilt insbesondere für $D_2<D\leq D_0$ $F\Gamma(D_2\leq D)(a_{D_2})=a_D$.
+			Dann wissen wir aber, dass für die vom Yoneda-Lemma erhaltene natürliche
+			Transformation $\alpha_{D_2}\colon\cat{A}(\Gamma D_2, {-})\nat F$ gerade
+			$\alpha_D=\alpha_{D_2}\circ (\Gamma(D_2\leq D))^*$ gilt.
+
+			Weiter haben wir $D_2$ so gewählt, dass $\overline{S}\cup\set{D_2}$ ein finales
+			Segment in $\down{D_0}$ ist. Damit ist $(\overline{S}, (\alpha_D)_{D\in\overline{S}\cup\set{D_2}})$
+			eine echte Erweiterung von $(\overline{S}, (\alpha_D)_{D\in\overline{S}})$,
+			ein Widerspruch.
 		\end{proof}}
 		\begin{theorem}[von der volltreuen Einbettung; Einbettungssatz von Freyd-Mitchell]
 			Für jede kleine abelsche Kategorie existieren ein Ring $R$ und eine volltreue
