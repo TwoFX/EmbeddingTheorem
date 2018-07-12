@@ -18,7 +18,6 @@
 \usepackage{lmodern}
 \usepackage{microtype}
 \usepackage{enumitem}
-\usepackage{stmaryrd}
 \usepackage{tikz-cd}
 \usepackage{faktor}
 \usepackage{etoolbox}
@@ -42,9 +41,13 @@
 
 \theoremstyle{nonumberplain}
 \theoremheaderfont{\normalfont\itshape}
-\theorembodyfont{\footnotesize}
+\theorembodyfont{\normalfont\footnotesize}
 \theoremsymbol{\ensuremath{\Box}}
 \newtheorem{proof}{Beweis.}
+\theorembodyfont{\normalfont\footnotesize}
+\theoremheaderfont{\normalfont\itshape}
+\theoremsymbol{\ensuremath{\lrcorner}}
+\newtheorem{overview}{Übersicht.}
 
 
 \MakeOuterQuote{"}
@@ -52,11 +55,15 @@
 \newtoggle{proofs}
 \toggletrue{proofs}
 
+\newtoggle{overviews}
+\toggletrue{overviews}
+
 \newcommand{\defiff}{\mathrel{\vcentcolon\Longleftrightarrow}}
 \newcommand\ccat\mathsf
 \newcommand\cat\mathcal
 \newcommand{\down}[1]{{\downarrow}#1}
 \newcommand{\p}[1]{\iftoggle{proofs}{#1}{}}
+\renewcommand{\o}[1]{\iftoggle{overviews}{#1}{}}
 \newcommand{\n}{\pgfmatrixnextcell}
 \newcommand\nat\Rightarrow
 
@@ -290,6 +297,56 @@
 			Jede kleine abelsche Kategorie lässt sich treu und exakt in die Kategorie
 			der abelschen Gruppen einbetten.
 		\end{theorem}
+		\o{\begin{overview}
+			Wir konstruieren eine kleine Kategorie $\cat{D}$ und einen Funktor
+			$\phi\colon\cat{D}\to\cat{A}$, die die Voraussetzungen der vorangegangenen
+			Hilfssätze erfüllen.
+			$\cat{D}$ ist eine Poset-Kategorie und durch (vollständige) Induktion definiert: $\cat{D}\coloneqq\bigcup_{n\in\mathbb{N}_0}\cat{D}_n$ und
+			$\phi$ ist die Fortsetzung aller $\phi_n$ ($n\in\mathbb{N}_0$), unter folgenden Voraussetzungen:
+			\begin{enumerate}[label=(\arabic*),noitemsep]
+				\item Für $a, b\in\cat{D}_n$ existiert das Infimum $a\wedge b$;
+				\item Für $n\leq m$ fallen $\phi_n$ und $\phi_m$ auf $\cat{D}_n$ zusammen;
+				\item $\phi_n(d)$ ist ein Epimorphismus für jedes $n\in\mathbb{N}$ und
+					für jeden Morphismus $d$ in $\cat{D}_n$;
+				\item $\forall A\in\cat{A}\ \exists D\in\cat{D}_1:\phi_1(D)= A$;
+				\item $\forall A\in\cat{A}, D\in\cat{D}_n, f\colon A\twoheadrightarrow\phi_n(D)
+					\ \exists d\in\cat{D}_{n+1}, d\colon D'\to D: \phi_{n+1}(d)=f$.
+			\end{enumerate}
+			$\cat{D}_0\coloneqq\set{*}$; $\phi_0(*)\coloneqq 0_\cat{A}$.
+			$\cat{D}_n$ und $\phi_n$ werden durch (transfinite) Induktion definiert: $\cat{D}_{n+1}\coloneqq\bigcup_\alpha\cat{D}_n^\alpha$
+			und $\phi_{n+1}$ ist die Fortsetzung aller $\phi_n^{\alpha}$, wobei die $\alpha+1$ alle
+			Paare der Form $(D, f)$, $D\in\cat{D}_n$, $f\colon A\twoheadrightarrow\phi_n(D)$ durchnummerieren und
+			folgende Voraussetzungen gelten:
+			\begin{enumerate}[label=(\alph*),noitemsep]
+				\item Für $a, b\in\cat{D}_n^\alpha$ existiert das Infimum $a\wedge b$;
+				\item Für $\beta<\alpha$ fallen $\phi_n^\alpha$ und $\phi_n^\beta$ auf $\cat{D}_n^\beta$;
+				\item $\phi_n^\alpha(d)$ ist ein Epimorphismus für jedes $\alpha$ und jeden
+					Morphismus $d$ in $\cat{D}_n^\alpha$;
+				\item Es sei $(D, f)$ das von $\alpha$ indizierte Paar, wobei
+					$f\colon A\to\phi_n(D)$. Dann existiert $d\colon D'\to D$ in
+					$\cat{D}_n^\alpha$, sodass $\phi_n^\alpha(d) = f$.
+			\end{enumerate}
+			Es sei $(\cat{D}_n^\alpha,
+			\phi_n^\alpha)$ definiert und $\alpha+1$ bezeichne das Paar $(D, f)$
+			$\down{D}\coloneqq\set{D'\in\cat{D}_n^\alpha\given D'\leq D}$
+			$\cat{D}_n^{\alpha+1}\coloneqq\cat{D}_n^\alpha\amalg\down{D}$. $D'^*$
+			bezeichnet die Kopie von $D'\leq D$ aus $\down{D}$. Halbordnung durch
+			Ordnungen auf $\cat{D}_n^\alpha$ und $\down{D}$ und durch die Relation
+			$D'^*\leq D'$ ($D'\leq D)$. $\phi_n^{\alpha+1}(D^*)\coloneqq A$,
+			$\phi_n^{\alpha+1}\coloneqq f$. Rest durch Pullbacks:
+			\[
+				\begin{tikzcd}[column sep=8em]
+					P \eqqcolon \phi_n^{\alpha+1}(D'^*)
+						\ar[two heads]{d}{v\eqqcolon \phi_n^{\alpha + 1}(D'^*\leq D')}
+						\ar[two heads]{r}{u\eqqcolon \phi_n^{\alpha+1}(D'^*\leq D^*)}
+					\n A=\phi_n^{\alpha+1}(D^*)
+						\ar[two heads]{d}{f = \phi_n^{\alpha+1}(D^*\leq D)}\\
+					\phi_n^\alpha(D') \ar[two heads]{r}{\phi_n^\alpha(D'\leq D)} \n \phi_n(D)
+				\end{tikzcd}
+			\]
+			%Eigenschaft (d) stellt also schrittweise sicher, dass Eigenschaft (5)
+			%erfüllt ist.
+		\end{overview}}
 		\p{\begin{proof}
 			Wir konstruieren eine kleine Kategorie $\cat{D}$ und einen Funktor
 			$\phi\colon\cat{D}\to\cat{A}$, die die Voraussetzungen der vorangegangenen
@@ -345,9 +402,9 @@
 			Wir betrachten für die Menge $\down{D}\coloneqq\set{D'\in\cat{D}_n^\alpha\given D'\leq D}$
 			die disjunkte Vereinigung $\cat{D}_n^\alpha\amalg\down{D}$. $D'^*$
 			bezeichne die Kopie von $D'\leq D$ aus $\down{D}$. Wir versehen
-			$\cat{D}_n^\alpha\amalg\down{D}$ mit eine Halbordnung, indem wir die
-			Ordnungen auf $\cat{D}_n^\alpha$ und $\down{D}$ übernhemen und zusätzlich
-			$D'*\leq D'$ für alle $D'\leq D$ fordern. $\cat{D}_n^{\alpha+1}\coloneqq
+			$\cat{D}_n^\alpha\amalg\down{D}$ mit einer Halbordnung, indem wir die
+			Ordnungen auf $\cat{D}_n^\alpha$ und $\down{D}$ übernehmen und zusätzlich
+			$D'^*\leq D'$ für alle $D'\leq D$ fordern. $\cat{D}_n^{\alpha+1}\coloneqq
 			\cat{D}_n^\alpha\amalg\down{D}$ mit der eben beschriebenen Halbordnung.
 			In $\down{D}$ existieren Infima. Für $D_1\in\down{D}, D_2\in\cat{D}_n^\alpha$
 			haben wir $(D_1\wedge D_2)^*=D_1^*\wedge D_2$ in $\cat{D}_n^{\alpha+1}$.
@@ -816,7 +873,6 @@
 			Wähle also $z\in U(\phi(D))$ mit $U(y)(z)=x$. Es sei $\xi\colon\cat{A}(\phi(D),{-})\nat U$
 			die zugehörige natürliche Transformation. Aus $U(y)(z)=x$ folgt
 			$\xi\circ y^*=\chi$. Wegen \ref{fact} erfüllt $U$ die Voraussetzungen
-			% TODO FIXME AAAAAA
 			von \ref{func} und wir erhalten $r\colon U\to U$ mit $r\circ s_D = \xi$.
 			Weiter gilt
 			\[
