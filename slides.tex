@@ -67,46 +67,6 @@
 	\begin{frame}
 		\maketitle
 	\end{frame}
-	\begin{frame}{Aufwärmen (1)}
-		\begin{proposition}[Explizite Berechnung kleiner filtrierter Colimiten in $\ccat{Set}$]\label{2-13-3}
-			Es sei $\cat{C}$ klein und filtriert und $F\colon \cat{C}\to\ccat{Set}$ ein
-			Funktor. Es ist $\colim_\cat{C} F = L$, wobei
-			\[
-				L=\faktor{\coprod_{C\in\cat{C}}FC}{\approx},\quad s_C\colon FC\to L;\ x\mapsto [x]_\approx.
-			\]
-			Die Äquivalenzrelation $\approx$ ist gegeben durch
-			\begin{multline*}
-				(x\in FC) \approx (x'\in FC')\\
-					\defiff \exists C''\in\cat{C}, f\colon C\to C'', g\colon C'\to C'': Ff(x) = Fg(x').
-			\end{multline*}
-		\end{proposition}
-	\end{frame}
-	\begin{frame}{Aufwärmen (2)}
-		\begin{proposition}
-			Es sei $\cat{C}$ eine Kategorie mit Pullbacks.
-			\[
-				\begin{tikzcd}[sep=4em]
-					A \ar{r}{a} \ar[phantom]{dr}{\text{(I)}} \ar{d}{c} \n B \ar[phantom]{dr}{\text{(II)}} \ar{r}{b} \ar{d}{d} \n C \ar{d}{e}\\
-					D \ar{r}{f} \n E \ar{r}{g} \n F
-				\end{tikzcd}
-			\]
-			Das obige Diagramm sei kommutativ.
-			\begin{enumerate}
-				\item Falls (I) und (II) Pullbacks sind, so ist auch das äußere
-					Rechteck ein Pullback.
-				\item Falls (II) und das äußere Quadrat Pullbacks sind, so ist auch
-					(I) ein Pullback.
-			\end{enumerate}
-		\end{proposition}
-	\end{frame}
-	\begin{frame}{Aufwärmen (3)}
-		\begin{proposition}
-			In einer Kategorie $\cat{C}$ sei $f\colon A\to B$ der Coequalizer von
-			$x, y\colon X\rightrightarrows A$. Weiter existiere der Pullback
-			$\alpha, \beta\colon P\rightrightarrows A$ von $(f, f)$. Dann ist
-			$f$ auch der Coequalizer von $(\alpha, \beta)$.
-		\end{proposition}
-	\end{frame}
 	\begin{frame}{Das Ziel\ldots}
 		\begin{satz}[von der volltreuen Einbettung; Einbettungssatz von Freyd-Mitchell]
 			Für jede kleine abelsche Kategorie existieren ein Ring $R$ und eine volltreue
@@ -149,14 +109,7 @@
 			der abelschen Gruppen einbetten.
 		\end{satz}
 	\end{frame}
-	\begin{frame}{Fun Facts}
-		\begin{defle}
-			Für alle Objekte $D_1,D_2\in\cat{D}$ ist das Segment
-				\[
-					[D_1, D_2] \coloneqq\set{D\in\cat{D}\given D_1\leq D\leq D_2}
-				\]
-			endlich.
-		\end{defle}\pause
+	\begin{frame}{Fun Facts (1)}
 		\begin{hilfssatz}
 			Sind $D_1, D_2\in\cat{D}$ Objekte mit $D_1\leq D_2$, so ist die kanonische Faktorisierung
 			\[
@@ -167,7 +120,7 @@
 			ein Epimorphismus.
 		\end{hilfssatz}
 	\end{frame}
-	\begin{frame}{Techniksache}
+	\begin{frame}{Fun Facts (2)}
 		\begin{hilfssatz}
 			Es sei $D_0\in\cat{D}$ ein Objekt und $\Gamma\colon \down{D_0}\to\cat{A}$
 			ein Funktor, wobei für alle $D_1\leq D_2\leq D_0$ die Faktorisierung

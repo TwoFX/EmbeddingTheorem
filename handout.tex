@@ -1,6 +1,7 @@
-\documentclass[a4paper, parskip=half]{scrartcl}
+\documentclass[a4paper, parskip=half,11pt]{scrartcl}
 
 \usepackage[l2tabu, orthodox]{nag}
+\usepackage[margin=2.5cm]{geometry}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -13,6 +14,7 @@
 \usepackage{mathtools}
 \usepackage{physics}
 \usepackage{centernot}
+
 
 \usepackage{csquotes}
 \usepackage{lmodern}
@@ -27,6 +29,7 @@
 
 \theoremstyle{marginbreak}
 \theorembodyfont{\normalfont}
+\theoremheaderfont{\rmfamily\bfseries}
 \newtheorem{remark}{Bemerkung}[section]
 \newtheorem{proposition}[remark]{Proposition}
 \newtheorem{theorem}[remark]{Satz}
@@ -53,7 +56,7 @@
 \MakeOuterQuote{"}
 
 \newtoggle{proofs}
-\toggletrue{proofs}
+\togglefalse{proofs}
 
 \newtoggle{overviews}
 \toggletrue{overviews}
@@ -79,130 +82,130 @@
 
 \begin{document}
 	\maketitle
-	\setcounter{section}{-1}
 
-	\section{Aufwärmen}
-		\begin{proposition}[Explizite Berechnung kleiner filtrierter Colimiten in $\ccat{Set}$]\label{2-13-3}
-			Es sei $\cat{C}$ klein und filtriert und $F\colon \cat{C}\to\ccat{Set}$ ein
-			Funktor. Es ist $\colim_\cat{C} F = L$, wobei
-			\[
-				L=\faktor{\coprod_{C\in\cat{C}}FC}{\approx},\quad s_C\colon FC\to L;\ x\mapsto [x]_\approx.
-			\]
-			Die Äquivalenzrelation $\approx$ ist gegeben durch
-			\[
-				(x\in FC) \approx (x'\in FC') \defiff \exists C''\in\cat{C}, f\colon C\to C'', g\colon C'\to C'': Ff(x) = Fg(x').
-			\]
-		\end{proposition}
-		\p{\begin{proof}
-			Zu zeigen sind:
-			\begin{enumerate}[noitemsep]
-				\item $\approx$ ist eine Äquivalenzrelation.
-				%\item $L$ ist eine abelsche Gruppe.
-				\item Der gegebene Kegel ist ein Grenzkegel.
-			\end{enumerate}
-			\begin{enumerate}[label=Zu \arabic*:]
-					\begin{minipage}{0.7\textwidth}
-					\item Klar: $\approx$ ist reflexiv und symmetrisch. Sei $(x\in FC_1)
-					\approx (x' \in FC_2)$, $(x'\in FC_2) \approx (x''\in FC_3)$.
-					Es existieren also Morphismen $f, g, h, k$, sodass
-					$Ff(x) = Fg(x')$, $Fh(x')=Fk(x'')$. Da $\cat{C}$ filtriert,
-					existiert ein Cokegel $(\alpha_i\colon C_i\to C_6)$ über dem
-					gegebenen Diagramm. Insbesondere haben wir also
-					\begin{align*}
-						F\alpha_4 \circ Ff(x) &= F\alpha_4\circ Fg(x') = F\alpha_2(x')\\
-							&= F\alpha_5\circ Fh(x') = F\alpha_5\circ Fk(x'').
-					\end{align*}
-					Dies zeigt $x \approx x''$.
-					\end{minipage}
-					\begin{minipage}{0.25\textwidth}
-						\[\begin{tikzcd}[sep=1em]
-							C_1 \ar{dr}{f} \n \n\\
-							\n C_4 \ar{dr}{\alpha_4} \n\\
-							C_2 \ar{dr}{h} \ar{ur}{g} \ar{rr}{\alpha_2} \n \n C_6\\
-							\n C_5 \ar{ur}{\alpha_5} \n\\
-							C_3 \ar{ur}{k} \n \n
-						\end{tikzcd}\]
-					\end{minipage}
-				%\item Es sei $(x\in FC_1)\approx (x'\in FC_2)$, $(y\in FC_3)\approx(y'\in FC_4)$.
-				\item Es seien $C, C'\in\cat{C}$, $f\colon C\to C'$, $x\in C$.
-					Wegen $Ff(x) = F(\id_{C'})(Ff(x))$ gilt $s_C(x) = [x]_\approx
-					= [Ff(x)]_\approx = s_{C'}(Ff(x)) \implies s_C = s_{C'}\circ Ff$.
-					Also bilden die $s_C$ einen Kegel. Es sei ein weiterer Kegel
-					gegeben durch $(t_C\colon FC\to M)_{C\in\cat{C}}$. Definiere
-					$t\colon L\to M$ durch $t([x]_\approx)\coloneqq t_C(x)$ für
-					$x\in FC$. Dies ist wohldefiniert, denn für $x'\in FC'$ mit
-					$[x']_\approx = [x]_\approx$ existieren $f\colon C\to C''$,
-					$g\colon C'\to C''$ mit $Ff(x) = Fg(x')$. Da $t$ ein Kegel ist, folgt
-					\[
-						t_C(x) = t_{C''}\circ Ff(x) = t_{C''}\circ Fg(x') = t_{C'}(x').
-					\]
-					$t\circ s_C=t_C$ gilt per Konstruktion und $t$ wird durch diese
-					Identität eindeutig festgelegt.
-			\end{enumerate}
-		\end{proof}}
-		\begin{proposition}\label{2-5-9}
-			Es sei $\cat{C}$ eine Kategorie mit Pullbacks.
-			\[
-				\begin{tikzcd}[sep=4em]
-					A \ar{r}{a} \ar[phantom]{dr}{\text{(I)}} \ar{d}{c} & B \ar[phantom]{dr}{\text{(II)}} \ar{r}{b} \ar{d}{d} & C \ar{d}{e}\\
-					D \ar{r}{f} & E \ar{r}{g} & F
-				\end{tikzcd}
-			\]
-			Das obige Diagramm sei kommutativ.
-			\begin{enumerate}
-				\item Falls (I) und (II) Pullbacks sind, so ist auch das äußere
-					Rechteck ein Pullback.
-				\item Falls (II) und das äußere Quadrat Pullbacks sind, so ist auch
-					(I) ein Pullback.
-			\end{enumerate}
-		\end{proposition}
-		\p{\begin{proof}\leavevmode
-			\begin{enumerate}
-				\item Es seien $x\colon X\to D$, $y\colon X\to C$ mit $g\circ f\circ x = e\circ y$.
-					Pullback (II) liefert ein eindeutiges $z\colon X\to B$, sodass
-					$b\circ z = y$, $d\circ z = f\circ x$. Letztere Gleichheit und Pullback
-					(I) geben ein eindeutiges $w\colon X\to A$, sodass $a\circ w = z$, $c\circ w = x$.
-					Insbesondere gilt $b\circ a\circ w = b\circ z = y$. Es sei $w'\colon X\to A$ ein
-					weiterer Morphismus mit $b\circ a\circ w' = y$ und $c\circ w' = x$. Es gilt also
-					$b\circ (a\circ w') = y = b\circ (a\circ w)$ und
-					$d\circ(a\circ w') = f\circ (c\circ w') = f\circ x = f\circ c\circ w = d\circ (a\circ w)$.
-					Pullback (II) liefert $a\circ w'=a\circ w$. Weiter ist $c\circ w'= x = c\circ w$.
-					Pullback (I) liefert $w=w'$.
-				\item Es sei $(A', c', a')$ der Pullback von $f$ und $d$.
-					Wegen $d\circ a=f\circ c$ erhalten wir eine eindeutige Faktorisierung
-					$h\colon A\to A'$ mit $a'\circ h=a$, $c'\circ h=c$.
-					Mit (1) und da (II) ein Pullback ist, ist $(A', c', b\circ a')$ ein Pullback von
-					$(g\circ f, e)$. Es ist jedoch auch $(A, c, b\circ a)$ ein Pullback von $(g\circ f, e)$.
-					Da Limiten eindeutig sind, folgt $A\cong A'$. Es gilt $c'\circ h=c$
-					und $b\circ a'\circ h = b\circ a$, also ist $h$ \emph{die} Faktorisierung
-					zwischen den beiden Pullbacks. Da Limiten eindeutig sind, ist $A\cong A'$,
-					also muss $h$ ein Isomorphismus sein.
-					\end{enumerate}
-		\end{proof}}
-		\begin{proposition}\label{2-5-7}
-			In einer Kategorie $\cat{C}$ sei $f\colon A\to B$ der Coequalizer von
-			$x, y\colon X\rightrightarrows A$. Weiter existiere der Pullback
-			$\alpha, \beta\colon P\rightrightarrows A$ von $(f, f)$. Dann ist
-			$f$ auch der Coequalizer von $(\alpha, \beta)$.
-		\end{proposition}
-		\p{\begin{proof}
-			\[
-				\begin{tikzcd}[sep=1.4em]
-					\n X \ar{dl}[']{z} \ar[shift left]{d}{y} \ar[shift right, ']{d}{x} \n \\
-					P \ar[shift left]{r}{\alpha} \ar[shift right, ']{r}{\beta} \n \ar{d}{g} A \ar{r}{f} \n \ar{dl}{h} B \\
-					\n C \n
-				\end{tikzcd}
-			\]
-			Es sei $f$ der Coequalizer von $(x, y)$ und $(\alpha, \beta)$ der
-			Pullback von $(f, f)$. Wegen $f\circ x = f\circ y$ existiert ein
-			eindeutiger Morphismus $z\colon X \to P$ mit $\alpha\circ z = x$,
-			$\beta\circ z=y$. Ist nun $g\colon A\to C$ ein Morphismus mit
-			$g\circ\alpha = g\circ\beta$, so gilt $g\circ x = g\circ\alpha\circ z
-			= g\circ\beta\circ z = g\circ y$. Es ist aber $f$ der Coequalizer von
-			$(x, y)$, also existiert ein eindeutiges $h$ mit $g = h\circ f$.
-		\end{proof}}
-
-	\section{Der Einbettungssatz}
+%	\setcounter{section}{1}
+%	\section{Aufwärmen}
+%		\begin{proposition}[Explizite Berechnung kleiner filtrierter Colimiten in $\ccat{Set}$]\label{2-13-3}
+%			Es sei $\cat{C}$ klein und filtriert und $F\colon \cat{C}\to\ccat{Set}$ ein
+%			Funktor. Es ist $\colim_\cat{C} F = L$, wobei
+%			\[
+%				L=\faktor{\coprod_{C\in\cat{C}}FC}{\approx},\quad s_C\colon FC\to L;\ x\mapsto [x]_\approx.
+%			\]
+%			Die Äquivalenzrelation $\approx$ ist gegeben durch
+%			\[
+%				(x\in FC) \approx (x'\in FC') \defiff \exists C''\in\cat{C}, f\colon C\to C'', g\colon C'\to C'': Ff(x) = Fg(x').
+%			\]
+%		\end{proposition}
+%		\p{\begin{proof}
+%			Zu zeigen sind:
+%			\begin{enumerate}[noitemsep]
+%				\item $\approx$ ist eine Äquivalenzrelation.
+%				%\item $L$ ist eine abelsche Gruppe.
+%				\item Der gegebene Kegel ist ein Grenzkegel.
+%			\end{enumerate}
+%			\begin{enumerate}[label=Zu \arabic*:]
+%					\begin{minipage}{0.7\textwidth}
+%					\item Klar: $\approx$ ist reflexiv und symmetrisch. Sei $(x\in FC_1)
+%					\approx (x' \in FC_2)$, $(x'\in FC_2) \approx (x''\in FC_3)$.
+%					Es existieren also Morphismen $f, g, h, k$, sodass
+%					$Ff(x) = Fg(x')$, $Fh(x')=Fk(x'')$. Da $\cat{C}$ filtriert,
+%					existiert ein Cokegel $(\alpha_i\colon C_i\to C_6)$ über dem
+%					gegebenen Diagramm. Insbesondere haben wir also
+%					\begin{align*}
+%						F\alpha_4 \circ Ff(x) &= F\alpha_4\circ Fg(x') = F\alpha_2(x')\\
+%							&= F\alpha_5\circ Fh(x') = F\alpha_5\circ Fk(x'').
+%					\end{align*}
+%					Dies zeigt $x \approx x''$.
+%					\end{minipage}
+%					\begin{minipage}{0.25\textwidth}
+%						\[\begin{tikzcd}[sep=1em]
+%							C_1 \ar{dr}{f} \n \n\\
+%							\n C_4 \ar{dr}{\alpha_4} \n\\
+%							C_2 \ar{dr}{h} \ar{ur}{g} \ar{rr}{\alpha_2} \n \n C_6\\
+%							\n C_5 \ar{ur}{\alpha_5} \n\\
+%							C_3 \ar{ur}{k} \n \n
+%						\end{tikzcd}\]
+%					\end{minipage}
+%				%\item Es sei $(x\in FC_1)\approx (x'\in FC_2)$, $(y\in FC_3)\approx(y'\in FC_4)$.
+%				\item Es seien $C, C'\in\cat{C}$, $f\colon C\to C'$, $x\in C$.
+%					Wegen $Ff(x) = F(\id_{C'})(Ff(x))$ gilt $s_C(x) = [x]_\approx
+%					= [Ff(x)]_\approx = s_{C'}(Ff(x)) \implies s_C = s_{C'}\circ Ff$.
+%					Also bilden die $s_C$ einen Kegel. Es sei ein weiterer Kegel
+%					gegeben durch $(t_C\colon FC\to M)_{C\in\cat{C}}$. Definiere
+%					$t\colon L\to M$ durch $t([x]_\approx)\coloneqq t_C(x)$ für
+%					$x\in FC$. Dies ist wohldefiniert, denn für $x'\in FC'$ mit
+%					$[x']_\approx = [x]_\approx$ existieren $f\colon C\to C''$,
+%					$g\colon C'\to C''$ mit $Ff(x) = Fg(x')$. Da $t$ ein Kegel ist, folgt
+%					\[
+%						t_C(x) = t_{C''}\circ Ff(x) = t_{C''}\circ Fg(x') = t_{C'}(x').
+%					\]
+%					$t\circ s_C=t_C$ gilt per Konstruktion und $t$ wird durch diese
+%					Identität eindeutig festgelegt.
+%			\end{enumerate}
+%		\end{proof}}
+%		\begin{proposition}\label{2-5-9}
+%			Es sei $\cat{C}$ eine Kategorie mit Pullbacks.
+%			\[
+%				\begin{tikzcd}[sep=4em]
+%					A \ar{r}{a} \ar[phantom]{dr}{\text{(I)}} \ar{d}{c} & B \ar[phantom]{dr}{\text{(II)}} \ar{r}{b} \ar{d}{d} & C \ar{d}{e}\\
+%					D \ar{r}{f} & E \ar{r}{g} & F
+%				\end{tikzcd}
+%			\]
+%			Das obige Diagramm sei kommutativ.
+%			\begin{enumerate}
+%				\item Falls (I) und (II) Pullbacks sind, so ist auch das äußere
+%					Rechteck ein Pullback.
+%				\item Falls (II) und das äußere Quadrat Pullbacks sind, so ist auch
+%					(I) ein Pullback.
+%			\end{enumerate}
+%		\end{proposition}
+%		\p{\begin{proof}\leavevmode
+%			\begin{enumerate}
+%				\item Es seien $x\colon X\to D$, $y\colon X\to C$ mit $g\circ f\circ x = e\circ y$.
+%					Pullback (II) liefert ein eindeutiges $z\colon X\to B$, sodass
+%					$b\circ z = y$, $d\circ z = f\circ x$. Letztere Gleichheit und Pullback
+%					(I) geben ein eindeutiges $w\colon X\to A$, sodass $a\circ w = z$, $c\circ w = x$.
+%					Insbesondere gilt $b\circ a\circ w = b\circ z = y$. Es sei $w'\colon X\to A$ ein
+%					weiterer Morphismus mit $b\circ a\circ w' = y$ und $c\circ w' = x$. Es gilt also
+%					$b\circ (a\circ w') = y = b\circ (a\circ w)$ und
+%					$d\circ(a\circ w') = f\circ (c\circ w') = f\circ x = f\circ c\circ w = d\circ (a\circ w)$.
+%					Pullback (II) liefert $a\circ w'=a\circ w$. Weiter ist $c\circ w'= x = c\circ w$.
+%					Pullback (I) liefert $w=w'$.
+%				\item Es sei $(A', c', a')$ der Pullback von $f$ und $d$.
+%					Wegen $d\circ a=f\circ c$ erhalten wir eine eindeutige Faktorisierung
+%					$h\colon A\to A'$ mit $a'\circ h=a$, $c'\circ h=c$.
+%					Mit (1) und da (II) ein Pullback ist, ist $(A', c', b\circ a')$ ein Pullback von
+%					$(g\circ f, e)$. Es ist jedoch auch $(A, c, b\circ a)$ ein Pullback von $(g\circ f, e)$.
+%					Da Limiten eindeutig sind, folgt $A\cong A'$. Es gilt $c'\circ h=c$
+%					und $b\circ a'\circ h = b\circ a$, also ist $h$ \emph{die} Faktorisierung
+%					zwischen den beiden Pullbacks. Da Limiten eindeutig sind, ist $A\cong A'$,
+%					also muss $h$ ein Isomorphismus sein.
+%					\end{enumerate}
+%		\end{proof}}
+%		\begin{proposition}\label{2-5-7}
+%			In einer Kategorie $\cat{C}$ sei $f\colon A\to B$ der Coequalizer von
+%			$x, y\colon X\rightrightarrows A$. Weiter existiere der Pullback
+%			$\alpha, \beta\colon P\rightrightarrows A$ von $(f, f)$. Dann ist
+%			$f$ auch der Coequalizer von $(\alpha, \beta)$.
+%		\end{proposition}
+%		\p{\begin{proof}
+%			\[
+%				\begin{tikzcd}[sep=1.4em]
+%					\n X \ar{dl}[']{z} \ar[shift left]{d}{y} \ar[shift right, ']{d}{x} \n \\
+%					P \ar[shift left]{r}{\alpha} \ar[shift right, ']{r}{\beta} \n \ar{d}{g} A \ar{r}{f} \n \ar{dl}{h} B \\
+%					\n C \n
+%				\end{tikzcd}
+%			\]
+%			Es sei $f$ der Coequalizer von $(x, y)$ und $(\alpha, \beta)$ der
+%			Pullback von $(f, f)$. Wegen $f\circ x = f\circ y$ existiert ein
+%			eindeutiger Morphismus $z\colon X \to P$ mit $\alpha\circ z = x$,
+%			$\beta\circ z=y$. Ist nun $g\colon A\to C$ ein Morphismus mit
+%			$g\circ\alpha = g\circ\beta$, so gilt $g\circ x = g\circ\alpha\circ z
+%			= g\circ\beta\circ z = g\circ y$. Es ist aber $f$ der Coequalizer von
+%			$(x, y)$, also existiert ein eindeutiges $h$ mit $g = h\circ f$.
+%		\end{proof}}
+	%\section{Der Einbettungssatz}
+		\setcounter{section}{1}
 		Es sei stets $\cat{A}$ eine kleine abelsche Kategorie.
 		\begin{proposition}\label{1-14-1}
 			Es sei $F\colon\cat{D}\to\ccat{Ab}^{\cat{A}}$ ein filtriertes Diagramm
@@ -306,11 +309,14 @@
 			\begin{enumerate}[label=(\arabic*),noitemsep]
 				\item Für $a, b\in\cat{D}_n$ existiert das Infimum $a\wedge b$;
 				\item Für $n\leq m$ fallen $\phi_n$ und $\phi_m$ auf $\cat{D}_n$ zusammen;
-				\item $\phi_n(d)$ ist ein Epimorphismus für jedes $n\in\mathbb{N}$ und
+				\item $\phi_n(d)$ ist ein Epimorphismus für jedes $n\in\mathbb{N}_0$ und
 					für jeden Morphismus $d$ in $\cat{D}_n$;
 				\item $\forall A\in\cat{A}\ \exists D\in\cat{D}_1:\phi_1(D)= A$;
 				\item $\forall A\in\cat{A}, D\in\cat{D}_n, f\colon A\twoheadrightarrow\phi_n(D)
 					\ \exists d\in\cat{D}_{n+1}, d\colon D'\to D: \phi_{n+1}(d)=f$.
+				\item $\forall D_1, D_2\in\cat{D}_{n}$ ist $[D_1, D_2]_{\cat{D}_n}\coloneqq\set{D\in\cat{D}_n\given
+					D_1\leq D\leq D_2}$ endlich.
+				\item $\forall D_1, D_2\in\cat{D}_{n}: [D_1, D_2]_{\cat{D}_n} = [D_1, D_2]_{\cat{D}_{n+1}}$.
 			\end{enumerate}
 			$\cat{D}_0\coloneqq\set{*}$; $\phi_0(*)\coloneqq 0_\cat{A}$.
 			$\cat{D}_n$ und $\phi_n$ werden durch (transfinite) Induktion definiert: $\cat{D}_{n+1}\coloneqq\bigcup_\alpha\cat{D}_n^\alpha$
@@ -325,6 +331,8 @@
 				\item Es sei $(D, f)$ das von $\alpha$ indizierte Paar, wobei
 					$f\colon A\to\phi_n(D)$. Dann existiert $d\colon D'\to D$ in
 					$\cat{D}_n^\alpha$, sodass $\phi_n^\alpha(d) = f$.
+				\item $\forall D_1, D_2\in\cat{D}_{n}^\alpha$ ist $[D_1, D_2]_{\cat{D}_n^\alpha}$ endlich.
+				\item $\forall D_1, D_2\in\cat{D}_{n}^\alpha, \beta>\alpha: [D_1, D_2]_{\cat{D}_n^\alpha} = [D_1, D_2]_{\cat{D}_{n}^{\beta}}$.
 			\end{enumerate}
 			Es sei $(\cat{D}_n^\alpha,
 			\phi_n^\alpha)$ definiert und $\alpha+1$ bezeichne das Paar $(D, f)$.
@@ -469,16 +477,9 @@
 			und Forderung (d) liefert, was wir brauchen.
 		\end{proof}}
 
-		Die Aussagen von \ref{fin}, \ref{fact} und \ref{func} beziehen sich auf
+		{ Die Aussagen von \ref{fact} und \ref{func} beziehen sich auf
 		die im Beweis von \ref{abeb} konstruierten
-		Wahlen für $\cat{D}$ und $\phi$.
-		\begin{defle}\label{fin}
-			Für alle Objekte $D_1,D_2\in\cat{D}$ ist das Segment
-				\[
-					[D_1, D_2] \coloneqq\set{D\in\cat{D}\given D_1\leq D\leq D_2}
-				\]
-			endlich.
-		\end{defle}
+		Wahlen für $\cat{D}$ und $\phi$.}
 		\p{\begin{proof}
 			Wir spielen die beiden verschachtelten Induktionen noch einmal durch und
 			zeigen für zwei Elemente $D_1, D_2$, die an einer Stelle der Konstruktion
@@ -625,7 +626,7 @@
 
 			Falls $\overline{S}\neq\down{D_0}$, existiert $D_1\leq D_0$, $D_1\notin\overline{S}$.
 			Das Segment $[D_1, D_0]$ ist endlich nach \ref{fin} und daher finden wir
-			ein $D_2\in [D_1, D_0]$ mit $D_2\notin\overline{S}$, $\forall D\in\overline{S}:D_2<D\leq D_0$.
+			ein $D_2\in [D_1, D_0]$ mit $D_2\notin\overline{S}$, $\forall D_2<D\leq D_0:D\in\overline{S}$.
 			Das Yoneda-Lemma ordnet für jedes $D$ mit $D_2<D\leq D_0$ der natürlichen
 			Transformation $\alpha_D\colon\cat{A}(\Gamma(D),{-})\nat F$ ein Element $a_D\in F\Gamma(D)$ zu.
 			Die abelsche Gruppe $\lim_{D_2<D\leq D_0}F\Gamma(D)$ nimmt die Form
@@ -640,13 +641,13 @@
 			Die Faktorisierung $\beta\colon\Gamma(D_2)\to\lim\Gamma(D)$ ist ein Epimorphismus
 			nach Voraussetzung. $F$ ist aber exakt, also ist $F(\beta)$ ein Epimorphismus,
 			also surjektiv. Wähle also $a_{D_2}\in F\Gamma(D_2)$ mit $F(\beta)(a_{D_2})=a$.
-			Dann gilt insbesondere für $D_2<D\leq D_0$ $F\Gamma(D_2\leq D)(a_{D_2})=a_D$.
+			Dann gilt insbesondere für $D_2<D\leq D_0$: $F\Gamma(D_2\leq D)(a_{D_2})=a_D$.
 			Dann wissen wir aber, dass für die vom Yoneda-Lemma erhaltene natürliche
 			Transformation $\alpha_{D_2}\colon\cat{A}(\Gamma D_2, {-})\nat F$ gerade
 			$\alpha_D=\alpha_{D_2}\circ (\Gamma(D_2\leq D))^*$ gilt.
 
 			Weiter haben wir $D_2$ so gewählt, dass $\overline{S}\cup\set{D_2}$ ein finales
-			Segment in $\down{D_0}$ ist. Damit ist $(\overline{S}, (\alpha_D)_{D\in\overline{S}\cup\set{D_2}})$
+			Segment in $\down{D_0}$ ist. Damit ist $(\overline{S}\cup\set{D_2}, (\alpha_D)_{D\in\overline{S}\cup\set{D_2}})$
 			eine echte Erweiterung von $(\overline{S}, (\alpha_D)_{D\in\overline{S}})$,
 			ein Widerspruch.
 		\end{proof}}
@@ -654,80 +655,80 @@
 			Für jede kleine abelsche Kategorie existieren ein Ring $R$ und eine volltreue
 			und exakte Einbettung in die Kategorie $\ccat{Mod}_R$ der $R$-Moduln.
 		\end{theorem}
-		\o{\begin{overview}
-			$R\coloneqq\ccat{Nat}(U, U)$. Für $A\in\cat{A}$ ist $U(A)$ durch $r\cdot x\coloneqq r_A(x)$
-			ein $R$-Modul. $U(f)$ ist $R$-linear. $V\colon\cat{A}\to\ccat{Mod}_R$ fasst das Bild von $U$
-			als $R$-Moduln und $R$-lineare Abbildungen auf; ist treu und exakt, weil $U$ es ist.
-			Zeige noch: $V$ ist voll, in mehreren Schritten:
-			\begin{itemize}[noitemsep]
-				\item Konstruktion des Funktors $\pi\colon\down{\delta_A}\to\cat{A}$ durch
-					Kernel Pairs
-					\[
-						\begin{tikzcd}[column sep=4em]
-							\pi(D)
-								\ar[shift left]{r}{u_D}
-								\ar[shift right, ']{r}{v_D}
-								\ar{d}{\pi(D\leq D')} \n
-							\phi(D)
-								\ar{r}{\phi(D\leq\delta_A)}
-								\ar{d}{\phi(D\leq D')} \n
-							A
-								\ar{d}{\id_A} \\
-							\pi(D')
-								\ar[shift left]{r}{u_{D'}}
-								\ar[shift right, ']{r}{v_{D'}} \n
-							\phi(D')
-								\ar{r}{\phi(D'\leq\delta_A)} \n
-							A
-						\end{tikzcd}
-					\]
-					\begin{itemize}[noitemsep]
-						\item Konstruktion von $u, v\colon U\nat P$ und des
-							Equalizers $w$
-						\begin{gather*}
-							\begin{tikzcd}[column sep=6em]
-								\cat{A}(\pi D,{-}) \n
-								\cat{A}(\phi D, {-})
-									\ar[shift right, ']{l}{u_D^*}
-									\ar[shift left]{l}{v_D^*} \n
-								\cat{A}(A, {-})
-									\ar[']{l}{\phi(D\leq\delta_A)^*}
-							\end{tikzcd}\\
-							\text{\rotatebox[origin=c]{270}{$\leadsto$}}\colim\\
-							\begin{tikzcd}
-								P \n
-								U
-									\ar[shift right, ']{l}{u}
-									\ar[shift left]{l}{v} \n
-								\cat{A}(A,{-})
-									\ar[tail,']{l}{w}
-							\end{tikzcd}
-						\end{gather*}
-					\end{itemize}
-				\item $\pi$ erfüllt die Voraussetzungen von \ref{func}
-				\item $V$ ist voll: Finden eines Urbilds von $\varphi\colon U(A)\to U(B)$
-					\begin{itemize}[noitemsep]
-						\item Konstruktion des Urbilds $f$ durch Faktorisierung von $\beta$ durch den Equalizer $w$
-							\[
-								\begin{tikzcd}
-									P \n
-									U
-										\ar[shift right,']{l}{u}
-										\ar[shift left]{l}{v} \n
-									\cat{A}(A,{-})
-										\ar[tail]{l}{w} \\ \n
-									\cat{A}(B,{-})
-										\ar{u}{\beta}
-										\ar[densely dotted, ']{ru}{f^*}
-								\end{tikzcd}
-							\]
-							\begin{itemize}[noitemsep]
-								\item $u\circ\beta = v\circ\beta$ durch Widerspruch
-							\end{itemize}
-						\item Nachweis, dass $U(f)=\varphi$
-					\end{itemize}
-			\end{itemize}
-		\end{overview}}
+		%\o{\begin{overview}
+		%	$R\coloneqq\ccat{Nat}(U, U)$. Für $A\in\cat{A}$ ist $U(A)$ durch $r\cdot x\coloneqq r_A(x)$
+		%	ein $R$-Modul. $U(f)$ ist $R$-linear. $V\colon\cat{A}\to\ccat{Mod}_R$ fasst das Bild von $U$
+		%	als $R$-Moduln und $R$-lineare Abbildungen auf; ist treu und exakt, weil $U$ es ist.
+		%	Zeige noch: $V$ ist voll, in mehreren Schritten:
+		%	\begin{itemize}[noitemsep]
+		%		\item Konstruktion des Funktors $\pi\colon\down{\delta_A}\to\cat{A}$ durch
+		%			Kernel Pairs
+		%			\[
+		%				\begin{tikzcd}[column sep=4em]
+		%					\pi(D)
+		%						\ar[shift left]{r}{u_D}
+		%						\ar[shift right, ']{r}{v_D}
+		%						\ar{d}{\pi(D\leq D')} \n
+		%					\phi(D)
+		%						\ar{r}{\phi(D\leq\delta_A)}
+		%						\ar{d}{\phi(D\leq D')} \n
+		%					A
+		%						\ar{d}{\id_A} \\
+		%					\pi(D')
+		%						\ar[shift left]{r}{u_{D'}}
+		%						\ar[shift right, ']{r}{v_{D'}} \n
+		%					\phi(D')
+		%						\ar{r}{\phi(D'\leq\delta_A)} \n
+		%					A
+		%				\end{tikzcd}
+		%			\]
+		%			\begin{itemize}[noitemsep]
+		%				\item Konstruktion von $u, v\colon U\nat P$ und des
+		%					Equalizers $w$
+		%				\begin{gather*}
+		%					\begin{tikzcd}[column sep=6em]
+		%						\cat{A}(\pi D,{-}) \n
+		%						\cat{A}(\phi D, {-})
+		%							\ar[shift right, ']{l}{u_D^*}
+		%							\ar[shift left]{l}{v_D^*} \n
+		%						\cat{A}(A, {-})
+		%							\ar[']{l}{\phi(D\leq\delta_A)^*}
+		%					\end{tikzcd}\\
+		%					\text{\rotatebox[origin=c]{270}{$\leadsto$}}\colim\\
+		%					\begin{tikzcd}
+		%						P \n
+		%						U
+		%							\ar[shift right, ']{l}{u}
+		%							\ar[shift left]{l}{v} \n
+		%						\cat{A}(A,{-})
+		%							\ar[tail,']{l}{w}
+		%					\end{tikzcd}
+		%				\end{gather*}
+		%			\end{itemize}
+		%		\item $\pi$ erfüllt die Voraussetzungen von \ref{func}
+		%		\item $V$ ist voll: Finden eines Urbilds von $\varphi\colon U(A)\to U(B)$
+		%			\begin{itemize}[noitemsep]
+		%				\item Konstruktion des Urbilds $f$ durch Faktorisierung von $\beta$ durch den Equalizer $w$
+		%					\[
+		%						\begin{tikzcd}
+		%							P \n
+		%							U
+		%								\ar[shift right,']{l}{u}
+		%								\ar[shift left]{l}{v} \n
+		%							\cat{A}(A,{-})
+		%								\ar[tail]{l}{w} \\ \n
+		%							\cat{A}(B,{-})
+		%								\ar{u}{\beta}
+		%								\ar[densely dotted, ']{ru}{f^*}
+		%						\end{tikzcd}
+		%					\]
+		%					\begin{itemize}[noitemsep]
+		%						\item $u\circ\beta = v\circ\beta$ durch Widerspruch
+		%					\end{itemize}
+		%				\item Nachweis, dass $U(f)=\varphi$
+		%			\end{itemize}
+		%	\end{itemize}
+		%\end{overview}}
 		\p{\begin{proof}
 			Es sei $U\colon\cat{A}\to\ccat{Ab}$ wie in \ref{abeb} konstruiert und
 			$\ccat{Nat}(U, U)$ die abelsche Gruppe der natürlichen Transformationen
@@ -899,7 +900,7 @@
 			dem Yoneda-Lemma die Form $f^*$ für irgendein $f\colon A\to B$ annimmt.
 
 			Angenommen, es wäre $u\circ\beta\neq v\circ\beta$. $\beta$ korrespondiert
-			mit $\phi(a)\in U(B) = \colim_{D\leq\delta_B}\cat{A}(\phi(D), B)$, ist
+			mit $\varphi(a)\in U(B) = \colim_{D\leq\delta_B}\cat{A}(\phi(D), B)$, ist
 			also die Äquivalenzklasse eines Morphismus $x\colon\phi(D)\to B$ für
 			irgendein $D\leq\delta_B$. Wenn $u\circ\beta\neq v\circ\beta$, dann muss
 			auch $x\circ u_D\neq x\circ v_D$, was man am Diagramm abliest, denn die
