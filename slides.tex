@@ -68,21 +68,22 @@
 		\maketitle
 	\end{frame}
 	\begin{frame}{Das Ziel\ldots}
-		\begin{satz}[von der volltreuen Einbettung; Einbettungssatz von Freyd-Mitchell]
+		\begin{satz}[von der volltreuen Einbettung]
 			Für jede kleine abelsche Kategorie existieren ein Ring $R$ und eine volltreue
-			und exakte Einbettung in die Kategorie $\ccat{Mod}_R$ der $R$-Moduln.
+			und exakte Einbettung in die Kategorie $\ccat{Mod}_R$ der (links-)$R$-Moduln.
 		\end{satz}
 	\end{frame}
 	\begin{frame}{Schlachtplan}
-		\begin{proposition}
+		\begin{hilfssatz}
 			Es sei $F\colon\cat{D}\to\ccat{Ab}^{\cat{A}}$ ein filtriertes Diagramm
 			linksexakter additiver Funktoren. Dann ist auch $\colim_{D\in\cat{D}} F(D)$
 			linksexakt und additiv.
-		\end{proposition}\pause
+		\end{hilfssatz}\pause
 		\begin{definition}[Die Einbettung in $\ccat{Ab}$]
-			Für eine Kategorie $\cat{D}$ und einen Funktor $\phi\colon\cat{D}\to\cat{A}$
-			definiere $U\coloneqq\colim_{D\in\cat{D}} (Y\circ\phi)(D)$, wobei $Y$ die
-			kontravariante Yoneda-Einbettung bezeichnet.
+			Wir definieren die Einbettung $U\colon\cat{A}\to\ccat{Ab}$ durch
+			$U\coloneqq \colim_{D\in\cat{D}}\cat{A}(\phi(D), {-})$.
+			Die Kategorie $\cat{D}$ und der Funktor $\phi\colon\cat{D}\to\cat{A}$ sind
+			noch zu konstruieren.
 		\end{definition}
 	\end{frame}
 	\begin{frame}{Wunschliste an $\cat{D}$ und $\phi$}
@@ -91,7 +92,7 @@
 		\end{hilfssatz}\pause
 		\begin{hilfssatz}
 			Es sei $\cat{D}$ kofiltriert. Weiter besitze jeder Epimorphismus
-			$f\colon A\to\phi(D)$ in $\cat{A}$ die Darstellung $f = \phi(d)$, wobei
+			$f\colon A\twoheadrightarrow\phi(D)$ in $\cat{A}$ die Darstellung $f = \phi(d)$, wobei
 			$d\colon D'\to D$ in $\cat{D}$. Dann erhält $U$ Epimorphismen.
 		\end{hilfssatz}\pause
 		\begin{hilfssatz}
@@ -135,16 +136,16 @@
 			Faktorisierung
 			\[
 				\begin{tikzcd}
-					\cat{A}(\Gamma D_0, {-}) \arrow{r}{s_{D_0}} \n \colim_{D\leq D_0}\cat{A}(\Gamma D, {-}) \arrow{r}{\alpha} \n F.
+					\cat{A}(\Gamma D_0, {-}) \arrow[Rightarrow]{r}{s_{D_0}} \n \colim_{D\leq D_0}\cat{A}(\Gamma D, {-}) \arrow[Rightarrow]{r}{\alpha} \n F.
 				\end{tikzcd}
 			\]
 			$s_{D_0}$ ist hierbei der kanonische Morphismus des Colimes.
 		\end{hilfssatz}
 	\end{frame}
 	\begin{frame}{Der letzte Schrei}
-		\begin{satz}[von der volltreuen Einbettung; Einbettungssatz von Freyd-Mitchell]
+		\begin{satz}[von der volltreuen Einbettung]
 			Für jede kleine abelsche Kategorie existieren ein Ring $R$ und eine volltreue
-			und exakte Einbettung in die Kategorie $\ccat{Mod}_R$ der $R$-Moduln.
+			und exakte Einbettung in die Kategorie $\ccat{Mod}_R$ der (links-)$R$-Moduln.
 		\end{satz}
 	\end{frame}
 \end{document}

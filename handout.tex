@@ -1,7 +1,7 @@
 \documentclass[a4paper, parskip=half,11pt]{scrartcl}
 
 \usepackage[l2tabu, orthodox]{nag}
-\usepackage[margin=2.5cm]{geometry}
+\usepackage[left=2cm, right=2cm, top=2.2cm, bottom=2.5cm]{geometry}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -207,19 +207,42 @@
 	%\section{Der Einbettungssatz}
 		\setcounter{section}{1}
 		Es sei stets $\cat{A}$ eine kleine abelsche Kategorie.
-		\begin{proposition}\label{1-14-1}
+		\begin{lemma}\label{1-14-1}
 			Es sei $F\colon\cat{D}\to\ccat{Ab}^{\cat{A}}$ ein filtriertes Diagramm
 			linksexakter additiver Funktoren. Dann ist auch $\colim_{D\in\cat{D}} F(D)$
 			linksexakt und additiv.
-		\end{proposition}
+		\end{lemma}
 		\p{\begin{proof}
 			Ohne.
 		\end{proof}}
-		\begin{definition}[Die Einbettung]
-			Für eine Kategorie $\cat{D}$ und einen Funktor $\phi\colon\cat{D}\to\cat{A}$
-			definiere $U\coloneqq\colim_{D\in\cat{D}} (Y\circ\phi)(D)$, wobei $Y$ die
-			kontravariante Yoneda-Einbettung bezeichnet.
+		\begin{definition}[Die Einbettung in $\ccat{Ab}$]
+			Wir definieren die Einbettung $U\colon\cat{A}\to\ccat{Ab}$ durch
+			$U\coloneqq \colim_{D\in\cat{D}}\cat{A}(\phi(D), {-})$.
+			Die Kategorie $\cat{D}$ und der Funktor $\phi\colon\cat{D}\to\cat{A}$ sind
+			noch zu konstruieren.
 		\end{definition}
+		\begin{overview}
+			Für $A\in\cat{A}$ ist $U(A)=\colim_{D\in\cat{D}}\cat{A}(\phi(D), A)\in\ccat{Ab}$.
+			Ist $\cat{D}$ kofiltriert, so ist $x\in U(A)$ eine Äquivalenzklasse
+			von Morphismen der Form $\alpha\colon \phi(D)\to A$ für ein $D\in\cat{D}$.
+			$\alpha\colon\phi(D)\to A$ und $\beta\colon\phi(D')\to A$ sind äquivalent
+			genau dann wenn $D''\in\cat{D}$, $d\colon D''\to D$, $d'\colon D''\to D'$
+			existieren, sodass das Diagramm
+			\[
+				\begin{tikzcd}
+					\phi(D'')
+						\ar{r}{\phi(d)}
+						\ar{d}{\phi(d')} \n
+					\phi(D)
+						\ar{d}{\alpha} \\
+					\phi(D')
+						\ar{r}{\beta} \n
+					A
+				\end{tikzcd}
+			\]
+			kommutiert. Ist $g\colon A\to B$ ein Morphismus in $\cat{A}$, so gilt
+			$U(g)([\alpha]) = [g\circ\alpha]$.
+		\end{overview}
 		\begin{lemma}
 			Ist $\cat{D}$ kofiltriert, so ist $U$ linksexakt.
 		\end{lemma}
@@ -235,7 +258,7 @@
 		\end{proof}}
 		\begin{lemma}
 			Es sei $\cat{D}$ kofiltriert. Weiter besitze jeder Epimorphismus
-			$f\colon A\to\phi(D)$ in $\cat{A}$ die Darstellung $f = \phi(d)$, wobei
+			$f\colon A\twoheadrightarrow\phi(D)$ in $\cat{A}$ die Darstellung $f = \phi(d)$, wobei
 			$d\colon D'\to D$ in $\cat{D}$. Dann erhält $U$ Epimorphismen.
 		\end{lemma}
 		\p{\begin{proof}
@@ -304,43 +327,46 @@
 			Wir konstruieren eine kleine Kategorie $\cat{D}$ und einen Funktor
 			$\phi\colon\cat{D}\to\cat{A}$, die die Voraussetzungen der vorangegangenen
 			Hilfssätze erfüllen.
-			$\cat{D}$ ist eine Poset-Kategorie und durch (vollständige) Induktion definiert: $\cat{D}\coloneqq\bigcup_{n\in\mathbb{N}_0}\cat{D}_n$ und
-			$\phi$ ist die Fortsetzung aller $\phi_n$ ($n\in\mathbb{N}_0$), unter folgenden Voraussetzungen:
+			$\cat{D}$ ist eine Poset-Kategorie und durch (vollständige) Induktion definiert: $\cat{D}\coloneqq\bigcup_{n\in\mathbb{N}_0}\cat{D}_n$,
+			wobei $\cat{D}_0\subseteq \cat{D}_1\subseteq\cdots$.
+			$\phi$ ist die Fortsetzung aller $\phi_n\colon \cat{D}_n\to\cat{A}$ ($n\in\mathbb{N}_0$).
+			$\cat{D}_n$ und $\phi_n$ sollen folgende Eigenschaften haben:
 			\begin{enumerate}[label=(\arabic*),noitemsep]
 				\item Für $a, b\in\cat{D}_n$ existiert das Infimum $a\wedge b$;
 				\item Für $n\leq m$ fallen $\phi_n$ und $\phi_m$ auf $\cat{D}_n$ zusammen;
 				\item $\phi_n(d)$ ist ein Epimorphismus für jedes $n\in\mathbb{N}_0$ und
 					für jeden Morphismus $d$ in $\cat{D}_n$;
 				\item $\forall A\in\cat{A}\ \exists D\in\cat{D}_1:\phi_1(D)= A$;
-				\item $\forall A\in\cat{A}, D\in\cat{D}_n, f\colon A\twoheadrightarrow\phi_n(D)
-					\ \exists d\in\cat{D}_{n+1}, d\colon D'\to D: \phi_{n+1}(d)=f$.
-				\item $\forall D_1, D_2\in\cat{D}_{n}$ ist $[D_1, D_2]_{\cat{D}_n}\coloneqq\set{D\in\cat{D}_n\given
-					D_1\leq D\leq D_2}$ endlich.
+				\item $\forall A\in\cat{A}, D\in\cat{D}_n, f\colon A\twoheadrightarrow\phi_n(D)\,\text{epi}
+					\ \exists d\in\cat{D}_{n+1}, d\colon D'\to D: \phi_{n+1}(d)=f$;
+				\item $\forall D_1, D_2\in\cat{D}_{n}: [D_1, D_2]_{\cat{D}_n}\coloneqq\set{D\in\cat{D}_n\given
+					D_1\leq D\leq D_2}~\text{endlich}$;
 				\item $\forall D_1, D_2\in\cat{D}_{n}: [D_1, D_2]_{\cat{D}_n} = [D_1, D_2]_{\cat{D}_{n+1}}$.
 			\end{enumerate}
 			$\cat{D}_0\coloneqq\set{*}$; $\phi_0(*)\coloneqq 0_\cat{A}$.
 			$\cat{D}_n$ und $\phi_n$ werden durch (transfinite) Induktion definiert: $\cat{D}_{n+1}\coloneqq\bigcup_\alpha\cat{D}_n^\alpha$
-			und $\phi_{n+1}$ ist die Fortsetzung aller $\phi_n^{\alpha}$, wobei die $\alpha+1$ alle
-			Paare der Form $(D, f)$, $D\in\cat{D}_n$, $f\colon A\twoheadrightarrow\phi_n(D)$ durchnummerieren und
+			mit $\cat{D}_n^0\subseteq\cat{D}_n^1\subseteq\cdots$
+			und $\phi_{n+1}$ ist die Fortsetzung aller $\phi_n^{\alpha}\colon \cat{D}_n^\alpha\to\cat{A}$, wobei die Successor Ordinals $\alpha+1$ alle
+			Paare der Form $(D, f)$, $D\in\cat{D}_n$, $f\colon A\twoheadrightarrow\phi_n(D)$ epi durchnummerieren und
 			folgende Voraussetzungen gelten:
 			\begin{enumerate}[label=(\alph*),noitemsep]
 				\item Für $a, b\in\cat{D}_n^\alpha$ existiert das Infimum $a\wedge b$;
-				\item Für $\beta<\alpha$ fallen $\phi_n^\alpha$ und $\phi_n^\beta$ auf $\cat{D}_n^\beta$;
+				\item Für $\beta<\alpha$ fallen $\phi_n^\alpha$ und $\phi_n^\beta$ auf $\cat{D}_n^\beta$ zusammen;
 				\item $\phi_n^\alpha(d)$ ist ein Epimorphismus für jedes $\alpha$ und jeden
 					Morphismus $d$ in $\cat{D}_n^\alpha$;
 				\item Es sei $(D, f)$ das von $\alpha$ indizierte Paar, wobei
 					$f\colon A\to\phi_n(D)$. Dann existiert $d\colon D'\to D$ in
-					$\cat{D}_n^\alpha$, sodass $\phi_n^\alpha(d) = f$.
-				\item $\forall D_1, D_2\in\cat{D}_{n}^\alpha$ ist $[D_1, D_2]_{\cat{D}_n^\alpha}$ endlich.
+					$\cat{D}_n^\alpha$, sodass $\phi_n^\alpha(d) = f$;
+				\item $\forall D_1, D_2\in\cat{D}_{n}^\alpha: [D_1, D_2]_{\cat{D}_n^\alpha}~\text{endlich}$;
 				\item $\forall D_1, D_2\in\cat{D}_{n}^\alpha, \beta>\alpha: [D_1, D_2]_{\cat{D}_n^\alpha} = [D_1, D_2]_{\cat{D}_{n}^{\beta}}$.
 			\end{enumerate}
 			Es sei $(\cat{D}_n^\alpha,
 			\phi_n^\alpha)$ definiert und $\alpha+1$ bezeichne das Paar $(D, f)$.
-			$\down{D}\coloneqq\set{D'\in\cat{D}_n^\alpha\given D'\leq D}$
+			$\down{D}\coloneqq\set{D'\in\cat{D}_n^\alpha\given D'\leq D}$. Definiere
 			$\cat{D}_n^{\alpha+1}\coloneqq\cat{D}_n^\alpha\amalg\down{D}$. $D'^*$
 			bezeichnet die Kopie von $D'\leq D$ aus $\down{D}$. Halbordnung durch
-			Ordnungen auf $\cat{D}_n^\alpha$ und $\down{D}$ und durch die Relation
-			$D'^*\leq D'$ ($D'\leq D)$. $\phi_n^{\alpha+1}(D^*)\coloneqq A$,
+			Ordnungen auf $\cat{D}_n^\alpha$ und $\down{D}$ und durch die Relationen
+			$D'^*\leq D'$ für $D'\leq D$. $\phi_n^{\alpha+1}(D^*)\coloneqq A$,
 			$\phi_n^{\alpha+1}\coloneqq f$. Rest durch Pullbacks:
 			\[
 				\begin{tikzcd}[column sep=8em]
@@ -598,7 +624,7 @@
 			Faktorisierung
 			\[
 				\begin{tikzcd}
-					\cat{A}(\Gamma D_0, {-}) \arrow{r}{s_{D_0}} & \colim_{D\leq D_0}\cat{A}(\Gamma D, {-}) \arrow{r}{\alpha} & F.
+					\cat{A}(\Gamma D_0, {-}) \arrow[Rightarrow]{r}{s_{D_0}} & \colim_{D\leq D_0}\cat{A}(\Gamma D, {-}) \arrow[Rightarrow]{r}{\alpha} & F.
 				\end{tikzcd}
 			\]
 			$s_{D_0}$ ist hierbei der kanonische Morphismus des Colimes.
@@ -653,7 +679,7 @@
 		\end{proof}}
 		\begin{theorem}[von der volltreuen Einbettung; Einbettungssatz von Freyd-Mitchell]
 			Für jede kleine abelsche Kategorie existieren ein Ring $R$ und eine volltreue
-			und exakte Einbettung in die Kategorie $\ccat{Mod}_R$ der $R$-Moduln.
+			und exakte Einbettung in die Kategorie $\ccat{Mod}_R$ der (links-)$R$-Moduln.
 		\end{theorem}
 		%\o{\begin{overview}
 		%	$R\coloneqq\ccat{Nat}(U, U)$. Für $A\in\cat{A}$ ist $U(A)$ durch $r\cdot x\coloneqq r_A(x)$
