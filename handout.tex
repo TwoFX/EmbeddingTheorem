@@ -56,10 +56,10 @@
 \MakeOuterQuote{"}
 
 \newtoggle{proofs}
-\togglefalse{proofs}
+\toggletrue{proofs}
 
 \newtoggle{overviews}
-\toggletrue{overviews}
+\togglefalse{overviews}
 
 \newcommand{\defiff}{\mathrel{\vcentcolon\Longleftrightarrow}}
 \newcommand\ccat\mathsf
@@ -367,7 +367,7 @@
 			bezeichnet die Kopie von $D'\leq D$ aus $\down{D}$. Halbordnung durch
 			Ordnungen auf $\cat{D}_n^\alpha$ und $\down{D}$ und durch die Relationen
 			$D'^*\leq D'$ für $D'\leq D$. $\phi_n^{\alpha+1}(D^*)\coloneqq A$,
-			$\phi_n^{\alpha+1}\coloneqq f$. Rest durch Pullbacks:
+			$\phi_n^{\alpha+1}(D^*\leq D)\coloneqq f$. Rest durch Pullbacks:
 			\[
 				\begin{tikzcd}[column sep=8em]
 					P \eqqcolon \phi_n^{\alpha+1}(D'^*)
@@ -503,9 +503,8 @@
 			und Forderung (d) liefert, was wir brauchen.
 		\end{proof}}
 
-		{ Die Aussagen von \ref{fact} und \ref{func} beziehen sich auf
-		die im Beweis von \ref{abeb} konstruierten
-		Wahlen für $\cat{D}$ und $\phi$.}
+		Die Aussagen von \ref{fact} und \ref{func} beziehen sich auf
+		Wahlen für $\cat{D}$ und $\phi$ wie gerade konstruiert.
 		\p{\begin{proof}
 			Wir spielen die beiden verschachtelten Induktionen noch einmal durch und
 			zeigen für zwei Elemente $D_1, D_2$, die an einer Stelle der Konstruktion
